@@ -1,7 +1,9 @@
+import { Text } from "react-native";
+
 const Chatscreen=()=>{
 
     return(
-        <Text>homescreen!</Text>
+        <Text>chatscreen</Text>
     );
 }
 export default Chatscreen;
