@@ -28,7 +28,7 @@ const Signup = () => {
       >
         <Image
           source={{ uri: "https://i.imgur.com/twh7tJk.png" }}
-          style={{ height: 100, width: 100, marginBottom: 50 }}
+          style={{ height: 100, width: 100, marginBottom: 30 }}
         />
       </View>
       <View
@@ -60,6 +60,10 @@ const Signup = () => {
             <TextInput
               style={{  padding: 10, fontSize: 20,marginVertical:5,backgroundColor:"rgb(232,232,232)", }}
               placeholder="Password"
+            />
+            <TextInput
+              style={{  padding: 10, fontSize: 20,marginVertical:5,backgroundColor:"rgb(232,232,232)", }}
+              placeholder="Confirm password"
             />
           </View>
           <View style={{ justifyContent:"center",flexDirection:"row"}}>

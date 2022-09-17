@@ -28,7 +28,7 @@ const Login = () => {
       >
         <Image
           source={{ uri: "https://i.imgur.com/twh7tJk.png" }}
-          style={{ height: 100, width: 100, marginBottom: 50 }}
+          style={{ height: 100, width: 100, marginBottom: 30 }}
         />
       </View>
       <View

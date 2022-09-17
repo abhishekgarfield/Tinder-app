@@ -28,7 +28,7 @@ const LoginScreen = () => {
               padding: 13,
               alignItems: "center",
               marginVertical: 12,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ color: "white", fontWeight: "700", fontSize: 18 }}>
@@ -36,12 +36,15 @@ const LoginScreen = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+          onPress={()=>{
+            navigation.navigate("signup")
+          }}
             style={{
               backgroundColor: "red",
               flexGrow: 1,
               padding: 13,
               alignItems: "center",
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ color: "white", fontWeight: "700", fontSize: 18 }}>
