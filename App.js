@@ -6,10 +6,11 @@ import Chatscreen from "./Screens/Chatscreen";
 import Homescreen from "./Screens/Homescreen";
 import { AuthProvider } from "./Hooks/useAuth";
 import LoginScreen from "./Screens/LoginScreen";
+import Login from "./Screens/Login";
 
 export default function App() {
   const Stack = createStackNavigator();
-  const User = true;
+  const User = false;
   return (
     <NavigationContainer>
       <SafeAreaProvider>
@@ -22,7 +23,10 @@ export default function App() {
                 <Stack.Screen name="chatscreen" component={Chatscreen} />
               </>
             ) : (
+              <>
               <Stack.Screen name="loginscreen" component={LoginScreen} />
+              <Stack.Screen name="login" component={Login}/>
+              </>
             )}
           </Stack.Navigator>
         </AuthProvider>
