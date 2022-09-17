@@ -19,9 +19,9 @@ const LoginScreen = () => {
       >
         <View style={{ position: "absolute", width: 250, bottom: 180 }}>
           <TouchableOpacity
-          onPress={()=>{
-            navigation.navigate("login");
-          }}
+            onPress={() => {
+              navigation.navigate("login");
+            }}
             style={{
               backgroundColor: "red",
               flexGrow: 1,
