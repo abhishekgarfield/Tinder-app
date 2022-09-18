@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import {
   TextInput,
   TouchableOpacity,
@@ -11,17 +11,27 @@ import {
 import { withTheme } from "react-native-elements";
 
 const Signup = () => {
+  const [Signupuser, setSingupuser] = useState({
+    name: String,
+    password: String,
+    confirmPassword: String,
+  });
+
+  // signup function
+  const handleSignup = () => {
+    console.log(Signupuser);
+  };
   const navigation = useNavigation();
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown:false
-    })
-     },[])
+      headerShown: false,
+    });
+  }, []);
   return (
-    <View style={{ flexGrow: 1 ,backgroundColor:"white"}}>
+    <View style={{ flexGrow: 1, backgroundColor: "white" }}>
       <View
         style={{
-          flexGrow:1,
+          flexGrow: 1,
           alignItems: "center",
           justifyContent: "flex-end",
         }}
@@ -45,29 +55,52 @@ const Signup = () => {
         >
           <View
             style={{
-              padding: 10,marginHorizontal:20
+              padding: 10,
+              marginHorizontal: 20,
             }}
           >
             <TextInput
+              value={Signupuser.name}
+              onChangeText={(newText) => {
+                setSingupuser({ ...Signupuser, name: newText });
+              }}
               style={{
                 padding: 10,
                 fontSize: 20,
-                marginVertical:5,
-                backgroundColor:"rgb(232,232,232)"
+                marginVertical: 5,
+                backgroundColor: "rgb(232,232,232)",
               }}
               placeholder="Email"
             />
             <TextInput
-              style={{  padding: 10, fontSize: 20,marginVertical:5,backgroundColor:"rgb(232,232,232)", }}
+              value={Signupuser.password}
+              onChangeText={(newText) => {
+                setSingupuser({ ...Signupuser, password: newText });
+              }}
+              style={{
+                padding: 10,
+                fontSize: 20,
+                marginVertical: 5,
+                backgroundColor: "rgb(232,232,232)",
+              }}
               placeholder="Password"
             />
             <TextInput
-              style={{  padding: 10, fontSize: 20,marginVertical:5,backgroundColor:"rgb(232,232,232)", }}
+              onChangeText={(newText) => {
+                setSingupuser({ ...Signupuser, confirmPassword: newText });
+              }}
+              style={{
+                padding: 10,
+                fontSize: 20,
+                marginVertical: 5,
+                backgroundColor: "rgb(232,232,232)",
+              }}
               placeholder="Confirm password"
             />
           </View>
-          <View style={{ justifyContent:"center",flexDirection:"row"}}>
+          <View style={{ justifyContent: "center", flexDirection: "row" }}>
             <TouchableOpacity
+              onPress={handleSignup}
               style={{
                 backgroundColor: "red",
                 padding: 13,
