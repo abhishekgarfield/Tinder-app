@@ -1,25 +1,55 @@
 import { useNavigation } from "@react-navigation/native";
 import { useLayoutEffect, useState } from "react";
+import reactDom from "react-dom";
 import {
   TextInput,
   TouchableOpacity,
   View,
   Text,
-  ImageBackground,
   Image,
+  StyleSheet,
 } from "react-native";
-import { withTheme } from "react-native-elements";
 
 const Signup = () => {
   const [Signupuser, setSingupuser] = useState({
-    name: String,
-    password: String,
-    confirmPassword: String,
+    email: null,
+    password: null,
+    confirmPassword: null,
+  });
+  const [error, setError] = useState({
+    email: { value: null, description: null },
+    password: { value: true, description: "" },
+    confirmPassword: false,
   });
 
   // signup function
   const handleSignup = () => {
-    console.log(Signupuser);
+    console.log(Signupuser.email.trim.length);
+    if (Signupuser.email?.trim().length <= 2) {
+      setError({
+        ...error,
+        email: { value: true, description: "User name should be >2" },
+      });
+    } else if (
+      Signupuser.email
+        ?.trim()
+        .match(
+          "^(([A-Za-z0-9.]+)([@]{1})([a-zA-z0-9.]+)([.]{1})([a-zA-z]{2,3}))$"
+        ) == null
+    ) {
+      setError({
+        ...error,
+        email: {
+          value: true,
+          description: "Email should be of type test@123.com",
+        },
+      });
+    } else {
+      setError({
+        ...error,
+        email: { value: false, description: "" },
+      });
+    }
   };
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -60,22 +90,60 @@ const Signup = () => {
             }}
           >
             <TextInput
-              value={Signupuser.name}
+              value={Signupuser.email}
               onChangeText={(newText) => {
-                setSingupuser({ ...Signupuser, name: newText });
+                setSingupuser({ ...Signupuser, email: newText });
               }}
-              style={{
-                padding: 10,
-                fontSize: 20,
-                marginVertical: 5,
-                backgroundColor: "rgb(232,232,232)",
-              }}
+              style={
+                error.email.value
+                  ? styles.error
+                  : {
+                      padding: 10,
+                      fontSize: 20,
+                      marginVertical: 5,
+                      backgroundColor: "rgb(232,232,232)",
+                    }
+              }
               placeholder="Email"
             />
+            {error.email && (
+              <View>
+                <Text
+                  style={
+                    error.email ? { color: "red" } : { color: "red", height }
+                  }
+                >
+                  {error.email.description}
+                </Text>
+              </View>
+            )}
             <TextInput
               value={Signupuser.password}
               onChangeText={(newText) => {
                 setSingupuser({ ...Signupuser, password: newText });
+                console.log(Signupuser.password);
+                if(Signupuser.password?.length>0)
+                {console.log("here");
+                  setError({
+                    ...error,
+                    password: { value: true, description: "weak" },
+                  });
+                   if(Signupuser.password?.length>10)
+                  {
+                    setError({
+                      ...error,
+                      password: { value: true, description: "medium" },
+                    });
+                    if(Signupuser.password.length>15)
+                  {
+                    setError({
+                      ...error,
+                      password: { value: true, description: "strong" },
+                    });
+                  }
+                  }
+                }
+                
               }}
               style={{
                 padding: 10,
@@ -85,6 +153,122 @@ const Signup = () => {
               }}
               placeholder="Password"
             />
+            {console.log(error.password.value)}
+            {error.password.value && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  flexGrow: 1,
+                }}
+              >
+                {(error.password.description == "weak" ||
+                  error.password.description == "medium" ||
+                  error.password.description == "strong") && (
+                    <>
+                      <View
+                        style={{
+                          backgroundColor: "red",
+                          borderColor: "lightgrey",
+                          borderWidth: 1,
+                          flexGrow: 1,
+                          width: 10,
+                          height: 10,
+                        }}
+                      ></View>
+                      <View
+                        style={{
+                          backgroundColor: "red",
+                          borderColor: "lightgrey",
+                          borderWidth: 1,
+                          flexGrow: 1,
+                          width: 10,
+                          height: 10,
+                        }}
+                      ></View>
+                      <View
+                        style={{
+                          backgroundColor: "red",
+                          borderColor: "lightgrey",
+                          borderWidth: 1,
+                          flexGrow: 1,
+                          width: 10,
+                          height: 10,
+                        }}
+                      ></View>
+                    </>
+                  )}
+                {(error.password.description == "medium" ||
+                  error.password.description == "strong") && (
+                    <>
+                      <View
+                        style={{
+                          backgroundColor: "yellow",
+                          borderColor: "lightgrey",
+                          borderWidth: 1,
+                          flexGrow: 1,
+                          width: 10,
+                          height: 10,
+                        }}
+                      ></View>
+                      <View
+                        style={{
+                          backgroundColor: "yellow",
+                          borderColor: "lightgrey",
+                          borderWidth: 1,
+                          flexGrow: 1,
+                          width: 10,
+                          height: 10,
+                        }}
+                      ></View>
+                      <View
+                        style={{
+                          backgroundColor: "yellow",
+                          borderColor: "lightgrey",
+                          borderWidth: 1,
+                          flexGrow: 1,
+                          width: 10,
+                          height: 10,
+                        }}
+                      ></View>
+                    </>
+                  )}
+                {error.password.description == "strong" && (
+                  <>
+                    <View
+                      style={{
+                        backgroundColor: "green",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        backgroundColor: "green",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        backgroundColor: "green",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                  </>
+                )}
+              </View>
+            )}
             <TextInput
               onChangeText={(newText) => {
                 setSingupuser({ ...Signupuser, confirmPassword: newText });
@@ -120,4 +304,21 @@ const Signup = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  error: {
+    borderColor: "red",
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 20,
+    marginVertical: 5,
+    backgroundColor: "rgb(232,232,232)",
+  },
+  valid: {
+    borderColor: "green",
+    padding: 10,
+    fontSize: 20,
+    marginVertical: 5,
+    backgroundColor: "rgb(232,232,232)",
+  },
+});
 export default Signup;
