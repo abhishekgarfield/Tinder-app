@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import reactDom from "react-dom";
 import {
   TextInput,
@@ -25,32 +25,8 @@ const Signup = () => {
   // signup function
   const handleSignup = () => {
     console.log(Signupuser.email);
-    if (Signupuser.email?.trim().length <= 2) {
-     
-      setError({
-        ...error,
-        email: { value: true, description: "User name should be >2" },
-      });
-    } else if (
-      Signupuser.email
-        ?.trim()
-        .match(
-          "^(([A-Za-z0-9.]+)([@]{1})([a-zA-z0-9.]+)([.]{1})([a-zA-z]{2,3}))$"
-        ) == null
-    ) {
-      setError({
-        ...error,
-        email: {
-          value: true,
-          description: "Email should be of type test@123.com",
-        },
-      });
-    } else {
-      setError({
-        ...error,
-        email: { value: false, description: "" },
-      });
-    }
+    // email validation
+
     if(Signupuser.confirmPassword!=Signupuser.password)
     {
       setError({
@@ -70,6 +46,9 @@ const Signup = () => {
         },
       });
     }
+
+    // confirm password  
+    
   };
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -77,6 +56,9 @@ const Signup = () => {
       headerShown: false,
     });
   }, []);
+  useEffect(()=>{
+
+  },[error.confirmPassword])
   return (
     <View style={{ flexGrow: 1, backgroundColor: "white" }}>
       <View
@@ -113,6 +95,32 @@ const Signup = () => {
               value={Signupuser.email}
               onChangeText={(newText) => {
                 setSingupuser({ ...Signupuser, email: newText });
+                if (Signupuser.email?.trim().length <= 2) {
+     
+                  setError({
+                    ...error,
+                    email: { value: true, description: "User name should be >2" },
+                  });
+                } else if (
+                  Signupuser.email
+                    ?.trim()
+                    .match(
+                      "^(([A-Za-z0-9.]+)([@]{1})([a-zA-z0-9.]+)([.]{1})([a-zA-z]{2,3}))$"
+                    ) == null
+                ) {
+                  setError({
+                    ...error,
+                    email: {
+                      value: true,
+                      description: "Email should be of type test@123.com",
+                    },
+                  });
+                } else {
+                  setError({
+                    ...error,
+                    email: { value: false, description: "" },
+                  });
+                }
               }}
               style={
                 error.email.value
@@ -126,14 +134,14 @@ const Signup = () => {
               }
               placeholder="Email"
             />
-            {error.email && (
+            {error.email.value && (
              
                 <Text
                   style={
                     {color:"red"}
                   }
                 >
-                  {console.log(error.email.description)}
+                  {error.email.description}
                 </Text>
             )}
             <TextInput
@@ -289,6 +297,7 @@ const Signup = () => {
             <TextInput
               onChangeText={(newText) => {
                 setSingupuser({ ...Signupuser, confirmPassword: newText });
+                
               }}
               style={{
                 padding: 10,
@@ -298,7 +307,7 @@ const Signup = () => {
               }}
               placeholder="Confirm password"
             />
-            {error.confirmPassword && (
+            {error.confirmPassword.value && (
               <View>
                 <Text
                   style={
