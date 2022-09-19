@@ -133,7 +133,7 @@ const Signup = () => {
                     {color:"red"}
                   }
                 >
-                  {error.email.description}
+                  {console.log(error.email.description)}
                 </Text>
             )}
             <TextInput
