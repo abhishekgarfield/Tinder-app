@@ -18,14 +18,15 @@ const Signup = () => {
   });
   const [error, setError] = useState({
     email: { value: null, description: null },
-    password: { value: true, description: "" },
-    confirmPassword: false,
+    password: { value: null, description: "" },
+    confirmPassword:  { value: true, description: "" }
   });
 
   // signup function
   const handleSignup = () => {
-    console.log(Signupuser.email.trim.length);
+    console.log(Signupuser.email);
     if (Signupuser.email?.trim().length <= 2) {
+     
       setError({
         ...error,
         email: { value: true, description: "User name should be >2" },
@@ -48,6 +49,25 @@ const Signup = () => {
       setError({
         ...error,
         email: { value: false, description: "" },
+      });
+    }
+    if(Signupuser.confirmPassword!=Signupuser.password)
+    {
+      setError({
+        ...error,
+        confirmPassword: {
+          value: true,
+          description: "Passwors don't match",
+        },
+      });
+    }
+    else{
+      setError({
+        ...error,
+        confirmPassword: {
+          value: false,
+          description: "",
+        },
       });
     }
   };
@@ -107,15 +127,14 @@ const Signup = () => {
               placeholder="Email"
             />
             {error.email && (
-              <View>
+             
                 <Text
                   style={
-                    error.email ? { color: "red" } : { color: "red", height }
+                    {color:"red"}
                   }
                 >
                   {error.email.description}
                 </Text>
-              </View>
             )}
             <TextInput
               value={Signupuser.password}
@@ -123,7 +142,6 @@ const Signup = () => {
                 setSingupuser({ ...Signupuser, password: newText });
                 console.log(Signupuser.password);
                 if(Signupuser.password?.length>0)
-                {console.log("here");
                   setError({
                     ...error,
                     password: { value: true, description: "weak" },
@@ -144,7 +162,7 @@ const Signup = () => {
                   }
                 }
                 
-              }}
+              }
               style={{
                 padding: 10,
                 fontSize: 20,
@@ -153,7 +171,6 @@ const Signup = () => {
               }}
               placeholder="Password"
             />
-            {console.log(error.password.value)}
             {error.password.value && (
               <View
                 style={{
@@ -281,6 +298,17 @@ const Signup = () => {
               }}
               placeholder="Confirm password"
             />
+            {error.confirmPassword && (
+              <View>
+                <Text
+                  style={
+                    error.email ? { color: "red" } : { color: "red", height }
+                  }
+                >
+                  {error.confirmPassword.description}
+                </Text>
+              </View>
+            )}
           </View>
           <View style={{ justifyContent: "center", flexDirection: "row" }}>
             <TouchableOpacity
