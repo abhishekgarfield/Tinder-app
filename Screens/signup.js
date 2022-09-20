@@ -148,7 +148,6 @@ const Signup = () => {
               value={Signupuser.password}
               onChangeText={(newText) => {
                 setSingupuser({ ...Signupuser, password: newText });
-                console.log(Signupuser.password);
                 if(Signupuser.password?.length>0)
                   setError({
                     ...error,
