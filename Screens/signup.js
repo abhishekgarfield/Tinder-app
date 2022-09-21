@@ -24,8 +24,7 @@ const Signup = () => {
 
   // signup function
   const handleSignup = () => {
-    console.log(Signupuser.email);
-    // email validation
+    // confirm password  
 
     if(Signupuser.confirmPassword!=Signupuser.password)
     {
@@ -45,9 +44,17 @@ const Signup = () => {
           description: "",
         },
       });
+      const url = `http://localhost:8000/signup`;
+    fetch(url, { method: get })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
     }
 
-    // confirm password  
+    
     
   };
   const navigation = useNavigation();

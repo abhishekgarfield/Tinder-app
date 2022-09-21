@@ -1,14 +1,23 @@
-import { createContext, useContext, useState } from "react";
-import { Text, View } from "react-native";
-const authContext = createContext({});
-export const AuthProvider = ({ children }) => {
-  return (
-    <authContext.Provider value={{ user: "abhishek" }}>
-      {children}
-    </authContext.Provider>
-  );
+import { createSlice } from "@reduxjs/toolkit";
+
+initialState = {
+  userinfo: null,
 };
 
-export default useAuth = () => {
-  return useContext(authContext);
-};
+export const userSlice = createSlice({
+  name:"user",
+  initialState,
+  reducers: {
+    signin: function (state, action) {
+      console.log("HERE");
+      state.userinfo = action.payload;
+    },
+    logout: (state, action) => {
+      state.user = null;
+    },
+  },
+});
+
+export const {signin,logout}=userSlice.actions;
+
+export default userSlice.reducer;

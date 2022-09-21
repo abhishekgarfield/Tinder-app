@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import { useDispatch } from "react-redux";
+import { signin } from "../Hooks/useAuth";
 
 const Login = () => {
   const dispatch=useDispatch();
@@ -37,6 +38,7 @@ const Login = () => {
         return res.json();
       })
       .then((data) => {
+        dispatch(signin(data));
         console.log(data);
       })
       .catch((err) => {
