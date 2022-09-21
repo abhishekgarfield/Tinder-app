@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import {
   TextInput,
   TouchableOpacity,
@@ -11,6 +11,10 @@ import {
 import { withTheme } from "react-native-elements";
 
 const Login = () => {
+  const [LoginUser,setLoginUser]=useState({
+    email:null,
+    password:null
+  })
   const navigation = useNavigation();
   useLayoutEffect(()=>{
     navigation.setOptions({
@@ -55,6 +59,7 @@ const Login = () => {
                 marginVertical:5,
                 backgroundColor:"rgb(232,232,232)"
               }}
+              
               placeholder="Email"
             />
             <TextInput
