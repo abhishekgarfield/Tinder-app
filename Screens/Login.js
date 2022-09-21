@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,
   Text,
-  ImageBackground,
   Image,
 } from "react-native";
 import { useDispatch } from "react-redux";

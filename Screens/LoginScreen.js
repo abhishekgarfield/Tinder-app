@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useLayoutEffect } from "react";
 import { ImageBackground, TouchableOpacity, View, Text } from "react-native";
-import { Image, TextInput } from "react-native";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -36,9 +35,9 @@ const LoginScreen = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={()=>{
-            navigation.navigate("signup")
-          }}
+            onPress={() => {
+              navigation.navigate("signup");
+            }}
             style={{
               backgroundColor: "red",
               flexGrow: 1,

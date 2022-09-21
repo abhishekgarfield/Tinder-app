@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useLayoutEffect, useState } from "react";
-import reactDom from "react-dom";
 import {
   TextInput,
   TouchableOpacity,
@@ -19,15 +18,14 @@ const Signup = () => {
   const [error, setError] = useState({
     email: { value: null, description: null },
     password: { value: null, description: "" },
-    confirmPassword:  { value: true, description: "" }
+    confirmPassword: { value: true, description: "" },
   });
 
   // signup function
   const handleSignup = () => {
-    // confirm password  
+    // confirm password
 
-    if(Signupuser.confirmPassword!=Signupuser.password)
-    {
+    if (Signupuser.confirmPassword != Signupuser.password) {
       setError({
         ...error,
         confirmPassword: {
@@ -35,8 +33,7 @@ const Signup = () => {
           description: "Passwors don't match",
         },
       });
-    }
-    else{
+    } else {
       setError({
         ...error,
         confirmPassword: {
@@ -45,17 +42,14 @@ const Signup = () => {
         },
       });
       const url = `http://localhost:8000/signup`;
-    fetch(url, { method: get })
-      .then((res) => {
-        res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
+      fetch(url, { method: get })
+        .then((res) => {
+          res.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
     }
-
-    
-    
   };
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -63,9 +57,7 @@ const Signup = () => {
       headerShown: false,
     });
   }, []);
-  useEffect(()=>{
-
-  },[error.confirmPassword])
+  useEffect(() => {}, [error.confirmPassword]);
   return (
     <View style={{ flexGrow: 1, backgroundColor: "white" }}>
       <View
@@ -103,10 +95,12 @@ const Signup = () => {
               onChangeText={(newText) => {
                 setSignupuser({ ...Signupuser, email: newText });
                 if (Signupuser.email?.trim().length <= 2) {
-     
                   setError({
                     ...error,
-                    email: { value: true, description: "User name should be >2" },
+                    email: {
+                      value: true,
+                      description: "User name should be >2",
+                    },
                   });
                 } else if (
                   Signupuser.email
@@ -142,41 +136,30 @@ const Signup = () => {
               placeholder="Email"
             />
             {error.email.value && (
-             
-                <Text
-                  style={
-                    {color:"red"}
-                  }
-                >
-                  {error.email.description}
-                </Text>
+              <Text style={{ color: "red" }}>{error.email.description}</Text>
             )}
             <TextInput
               value={Signupuser.password}
               onChangeText={(newText) => {
                 setSignupuser({ ...Signupuser, password: newText });
-                if(Signupuser.password?.length>0)
+                if (Signupuser.password?.length > 0)
                   setError({
                     ...error,
                     password: { value: true, description: "weak" },
                   });
-                   if(Signupuser.password?.length>10)
-                  {
-                    setError({
-                      ...error,
-                      password: { value: true, description: "medium" },
-                    });
-                    if(Signupuser.password.length>15)
-                  {
+                if (Signupuser.password?.length > 10) {
+                  setError({
+                    ...error,
+                    password: { value: true, description: "medium" },
+                  });
+                  if (Signupuser.password.length > 15) {
                     setError({
                       ...error,
                       password: { value: true, description: "strong" },
                     });
                   }
-                  }
                 }
-                
-              }
+              }}
               style={{
                 padding: 10,
                 fontSize: 20,
@@ -196,74 +179,74 @@ const Signup = () => {
                 {(error.password.description == "weak" ||
                   error.password.description == "medium" ||
                   error.password.description == "strong") && (
-                    <>
-                      <View
-                        style={{
-                          backgroundColor: "red",
-                          borderColor: "lightgrey",
-                          borderWidth: 1,
-                          flexGrow: 1,
-                          width: 10,
-                          height: 10,
-                        }}
-                      ></View>
-                      <View
-                        style={{
-                          backgroundColor: "red",
-                          borderColor: "lightgrey",
-                          borderWidth: 1,
-                          flexGrow: 1,
-                          width: 10,
-                          height: 10,
-                        }}
-                      ></View>
-                      <View
-                        style={{
-                          backgroundColor: "red",
-                          borderColor: "lightgrey",
-                          borderWidth: 1,
-                          flexGrow: 1,
-                          width: 10,
-                          height: 10,
-                        }}
-                      ></View>
-                    </>
-                  )}
+                  <>
+                    <View
+                      style={{
+                        backgroundColor: "red",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        backgroundColor: "red",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        backgroundColor: "red",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                  </>
+                )}
                 {(error.password.description == "medium" ||
                   error.password.description == "strong") && (
-                    <>
-                      <View
-                        style={{
-                          backgroundColor: "yellow",
-                          borderColor: "lightgrey",
-                          borderWidth: 1,
-                          flexGrow: 1,
-                          width: 10,
-                          height: 10,
-                        }}
-                      ></View>
-                      <View
-                        style={{
-                          backgroundColor: "yellow",
-                          borderColor: "lightgrey",
-                          borderWidth: 1,
-                          flexGrow: 1,
-                          width: 10,
-                          height: 10,
-                        }}
-                      ></View>
-                      <View
-                        style={{
-                          backgroundColor: "yellow",
-                          borderColor: "lightgrey",
-                          borderWidth: 1,
-                          flexGrow: 1,
-                          width: 10,
-                          height: 10,
-                        }}
-                      ></View>
-                    </>
-                  )}
+                  <>
+                    <View
+                      style={{
+                        backgroundColor: "yellow",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        backgroundColor: "yellow",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                    <View
+                      style={{
+                        backgroundColor: "yellow",
+                        borderColor: "lightgrey",
+                        borderWidth: 1,
+                        flexGrow: 1,
+                        width: 10,
+                        height: 10,
+                      }}
+                    ></View>
+                  </>
+                )}
                 {error.password.description == "strong" && (
                   <>
                     <View
@@ -303,7 +286,6 @@ const Signup = () => {
             <TextInput
               onChangeText={(newText) => {
                 setSignupuser({ ...Signupuser, confirmPassword: newText });
-                
               }}
               style={{
                 padding: 10,

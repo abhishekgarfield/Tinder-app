@@ -7,7 +7,9 @@ import useAuth from "../Hooks/useAuth";
 
 const Homescreen = () => {
   const navigation = useNavigation();
-  const user=useSelector((state)=>{return state.user.userinfo})
+  const user = useSelector((state) => {
+    return state.user.userinfo;
+  });
   return (
     <View>
       <Text
