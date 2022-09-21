@@ -8,6 +8,7 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+import { Icon } from "react-native-elements";
 
 const Signup = () => {
   const [Signupuser, setSignupuser] = useState({
@@ -18,7 +19,7 @@ const Signup = () => {
   const [error, setError] = useState({
     email: { value: null, description: null },
     password: { value: null, description: "" },
-    confirmPassword: { value: true, description: "" },
+    confirmPassword: { value: null, description: "" },
   });
 
   // signup function
@@ -30,7 +31,7 @@ const Signup = () => {
         ...error,
         confirmPassword: {
           value: true,
-          description: "Passwors don't match",
+          description: "Passwords don't match",
         },
       });
     } else {
@@ -42,7 +43,7 @@ const Signup = () => {
         },
       });
       const url = `http://localhost:8000/signup`;
-      fetch(url, { method: get })
+      fetch(url, { method: "POST" })
         .then((res) => {
           res.json();
         })
@@ -136,7 +137,21 @@ const Signup = () => {
               placeholder="Email"
             />
             {error.email.value && (
-              <Text style={{ color: "red" }}>{error.email.description}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+              >
+                <Icon
+                  type="ionicon"
+                  name="alert-circle-outline"
+                  size={20}
+                  color="red"
+                />
+                <Text style={{ color: "red" }}>{error.email.description}</Text>
+              </View>
             )}
             <TextInput
               value={Signupuser.password}
@@ -295,8 +310,21 @@ const Signup = () => {
               }}
               placeholder="Confirm password"
             />
-            {error.confirmPassword.value && (
-              <View>
+            {error.confirmPassword.value && 
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+              >
+                <Icon
+                  type="ionicon"
+                  name="alert-circle-outline"
+                  size={20}
+                  color="red"
+                />
+
                 <Text
                   style={
                     error.email ? { color: "red" } : { color: "red", height }
@@ -305,7 +333,7 @@ const Signup = () => {
                   {error.confirmPassword.description}
                 </Text>
               </View>
-            )}
+            }
           </View>
           <View style={{ justifyContent: "center", flexDirection: "row" }}>
             <TouchableOpacity
