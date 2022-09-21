@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 const Signup = () => {
-  const [Signupuser, setSingupuser] = useState({
+  const [Signupuser, setSignupuser] = useState({
     email: null,
     password: null,
     confirmPassword: null,
@@ -94,7 +94,7 @@ const Signup = () => {
             <TextInput
               value={Signupuser.email}
               onChangeText={(newText) => {
-                setSingupuser({ ...Signupuser, email: newText });
+                setSignupuser({ ...Signupuser, email: newText });
                 if (Signupuser.email?.trim().length <= 2) {
      
                   setError({
@@ -147,7 +147,7 @@ const Signup = () => {
             <TextInput
               value={Signupuser.password}
               onChangeText={(newText) => {
-                setSingupuser({ ...Signupuser, password: newText });
+                setSignupuser({ ...Signupuser, password: newText });
                 if(Signupuser.password?.length>0)
                   setError({
                     ...error,
@@ -295,7 +295,7 @@ const Signup = () => {
             )}
             <TextInput
               onChangeText={(newText) => {
-                setSingupuser({ ...Signupuser, confirmPassword: newText });
+                setSignupuser({ ...Signupuser, confirmPassword: newText });
                 
               }}
               style={{
