@@ -11,15 +11,15 @@ import Signup from "./Screens/signup";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./store";
 
-const Appwrapper=()=>{
-    const Stack = createStackNavigator();
-    const user=useSelector(state=>state.user.userinfo);
-    return(
-        <NavigationContainer>
+const Appwrapper = () => {
+  const Stack = createStackNavigator();
+  const user = useSelector((state) => state.user.userinfo);
+  return (
+    <NavigationContainer>
       <SafeAreaProvider>
         <Provider store={store}>
-       
-          <KeyboardAvoidingView style={{flexGrow:1}}
+          <KeyboardAvoidingView
+            style={{ flexGrow: 1 }}
             behavior={Platform.OS == "ios" ? "padding" : "height"}
             keyboardVerticalOffset={Platform.OS == "ios" ? -64 : 0}
           >
@@ -42,8 +42,7 @@ const Appwrapper=()=>{
         </Provider>
       </SafeAreaProvider>
     </NavigationContainer>
-
-    );
-}
+  );
+};
 
 export default Appwrapper;
