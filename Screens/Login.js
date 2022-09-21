@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 import {
   TextInput,
@@ -13,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { signin } from "../Hooks/useAuth";
 
 const Login = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [LoginUser, setLoginUser] = useState({
     email: null,
     password: null,
@@ -35,15 +34,15 @@ const Login = () => {
       body: JSON.stringify(LoginUser),
     })
       .then((res) => {
-        if(res.status==409)
-        { console.log("inside 409");
-           res.json().then((err)=>{setError(err)});
+        if (res.status == 409) {
+          res.json().then((err) => {
+            setError(err);
+          });
+        } else {
+          res.json().then((data) => {
+            dispatch(signin(data));
+          });
         }
-        else
-        {
-          res.json().then((data)=>{dispatch(signin(data))})
-        }
-        
       })
       .catch((err) => {
         console.log(err);

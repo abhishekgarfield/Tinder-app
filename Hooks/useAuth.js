@@ -5,11 +5,10 @@ initialState = {
 };
 
 export const userSlice = createSlice({
-  name:"user",
+  name: "user",
   initialState,
   reducers: {
     signin: function (state, action) {
-      console.log("HERE");
       state.userinfo = action.payload;
     },
     logout: (state, action) => {
@@ -18,6 +17,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {signin,logout}=userSlice.actions;
+export const { signin, logout } = userSlice.actions;
 
 export default userSlice.reducer;
