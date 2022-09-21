@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 import {
   TextInput,
@@ -8,24 +9,57 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
-import { withTheme } from "react-native-elements";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const [LoginUser,setLoginUser]=useState({
-    email:null,
-    password:null
-  })
-  const navigation = useNavigation();
-  useLayoutEffect(()=>{
-    navigation.setOptions({
-      headerShown:false
+  const dispatch=useDispatch();
+  const [LoginUser, setLoginUser] = useState({
+    email: null,
+    password: null,
+  });
+  const [error, setError] = useState(null);
+
+  // Login
+
+  const handleLogin = async () => {
+    console.log(LoginUser);
+    // Routing
+    const url = `http://localhost:8000/login`;
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(LoginUser),
     })
-     },[])
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //const response=await axios.post("http://localhost:8000/login",LoginUser);
+    //console.log(response.data);
+  };
+
+  // Layout effect
+
+  const navigation = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
   return (
-    <View style={{ flexGrow: 1 ,backgroundColor:"white"}}>
+    <View style={{ flexGrow: 1, backgroundColor: "white" }}>
       <View
         style={{
-          flexGrow:1,
+          flexGrow: 1,
           alignItems: "center",
           justifyContent: "flex-end",
         }}
@@ -49,25 +83,37 @@ const Login = () => {
         >
           <View
             style={{
-              padding: 10,marginHorizontal:20
+              padding: 10,
+              marginHorizontal: 20,
             }}
           >
             <TextInput
               style={{
                 padding: 10,
                 fontSize: 20,
-                marginVertical:5,
-                backgroundColor:"rgb(232,232,232)"
+                marginVertical: 5,
+                backgroundColor: "rgb(232,232,232)",
               }}
-              
+              onChangeText={(newText) => {
+                setLoginUser({ ...LoginUser, email: newText });
+              }}
               placeholder="Email"
             />
             <TextInput
-              style={{  padding: 10, fontSize: 20,marginVertical:5,backgroundColor:"rgb(232,232,232)", }}
+              style={{
+                padding: 10,
+                fontSize: 20,
+                marginVertical: 5,
+                backgroundColor: "rgb(232,232,232)",
+              }}
               placeholder="Password"
+              onChangeText={(newText) => {
+                setLoginUser({ ...LoginUser, password: newText });
+              }}
             />
+            {error && <Text style={{ color: "red" }}></Text>}
           </View>
-          <View style={{ justifyContent:"center",flexDirection:"row"}}>
+          <View style={{ justifyContent: "center", flexDirection: "row" }}>
             <TouchableOpacity
               style={{
                 backgroundColor: "red",
@@ -76,6 +122,7 @@ const Login = () => {
                 alignItems: "center",
                 borderRadius: 10,
               }}
+              onPress={handleLogin}
             >
               <Text style={{ color: "white", fontWeight: "700", fontSize: 20 }}>
                 Login
