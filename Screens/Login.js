@@ -35,11 +35,15 @@ const Login = () => {
       body: JSON.stringify(LoginUser),
     })
       .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        dispatch(signin(data));
-        console.log(data);
+        if(res.status==409)
+        { console.log("inside 409");
+           res.json().then((err)=>{setError(err)});
+        }
+        else
+        {
+          res.json().then((data)=>{dispatch(signin(data))})
+        }
+        
       })
       .catch((err) => {
         console.log(err);
@@ -113,7 +117,7 @@ const Login = () => {
                 setLoginUser({ ...LoginUser, password: newText });
               }}
             />
-            {error && <Text style={{ color: "red" }}></Text>}
+            {error && <Text style={{ color: "red" }}>{error}</Text>}
           </View>
           <View style={{ justifyContent: "center", flexDirection: "row" }}>
             <TouchableOpacity
