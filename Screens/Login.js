@@ -8,6 +8,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
+import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { isloading } from "../Hooks/loading";
 import { signin } from "../Hooks/useAuth";
@@ -149,7 +150,23 @@ const Login = () => {
                     setLoginUser({ ...LoginUser, password: newText });
                   }}
                 />
-                {error && <Text style={{ color: "red" }}>{error}</Text>}
+                {error && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Icon
+                      type="ionicon"
+                      name="alert-circle-outline"
+                      size={20}
+                      color="red"
+                    />
+                    <Text style={{ color: "red", marginLeft: 2 }}>{error}</Text>
+                  </View>
+                )}
               </View>
               <View style={{ justifyContent: "center", flexDirection: "row" }}>
                 <TouchableOpacity
