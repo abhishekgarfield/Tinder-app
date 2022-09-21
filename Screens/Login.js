@@ -6,12 +6,17 @@ import {
   View,
   Text,
   Image,
+  ActivityIndicator,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isloading } from "../Hooks/loading";
 import { signin } from "../Hooks/useAuth";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => {
+    return state.loader.isloading;
+  });
   const [LoginUser, setLoginUser] = useState({
     email: null,
     password: null,
@@ -23,6 +28,7 @@ const Login = () => {
   const handleLogin = async () => {
     console.log(LoginUser);
     // Routing
+    dispatch(isloading(true));
     const url = `http://localhost:8000/login`;
 
     fetch(url, {
@@ -36,9 +42,11 @@ const Login = () => {
         if (res.status == 409) {
           res.json().then((err) => {
             setError(err);
+            dispatch(isloading(false));
           });
         } else {
           res.json().then((data) => {
+            dispatch(isloading(false));
             dispatch(signin(data));
           });
         }
@@ -60,82 +68,112 @@ const Login = () => {
     });
   }, []);
   return (
-    <View style={{ flexGrow: 1, backgroundColor: "white" }}>
-      <View
-        style={{
-          flexGrow: 1,
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Image
-          source={{ uri: "https://i.imgur.com/twh7tJk.png" }}
-          style={{ height: 100, width: 100, marginBottom: 30 }}
-        />
-      </View>
-      <View
-        style={{
-          flexGrow: 1,
-          backgroundColor: "white",
-          justifyContent: "flex-start",
-        }}
-      >
-        <View
-          style={{
-            justifyContent: "center",
-          }}
-        >
-          <View
+    <>
+      {isLoading && (
+        <View style={{ flexGrow: 1 }}>
+          <ActivityIndicator
+            color={"red"}
+            size={"large"}
             style={{
-              padding: 10,
-              marginHorizontal: 20,
+              flexGrow: 1,
+              justifyContent: "flex-end",
+              marginBottom: 20,
+            }}
+          />
+          <Text
+            style={{
+              flexGrow: 0.9,
+              textAlign: "center",
+              fontSize: 25,
+              alignItems: "flex-start",
+              fontWeight: "500",
             }}
           >
-            <TextInput
-              style={{
-                padding: 10,
-                fontSize: 20,
-                marginVertical: 5,
-                backgroundColor: "rgb(232,232,232)",
-              }}
-              onChangeText={(newText) => {
-                setLoginUser({ ...LoginUser, email: newText });
-              }}
-              placeholder="Email"
+            Signing in ...
+          </Text>
+        </View>
+      )}
+      {!isLoading && (
+        <View style={{ flexGrow: 1, backgroundColor: "white" }}>
+          <View
+            style={{
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.imgur.com/twh7tJk.png" }}
+              style={{ height: 100, width: 100, marginBottom: 30 }}
             />
-            <TextInput
-              style={{
-                padding: 10,
-                fontSize: 20,
-                marginVertical: 5,
-                backgroundColor: "rgb(232,232,232)",
-              }}
-              placeholder="Password"
-              onChangeText={(newText) => {
-                setLoginUser({ ...LoginUser, password: newText });
-              }}
-            />
-            {error && <Text style={{ color: "red" }}>{error}</Text>}
           </View>
-          <View style={{ justifyContent: "center", flexDirection: "row" }}>
-            <TouchableOpacity
+          <View
+            style={{
+              flexGrow: 1,
+              backgroundColor: "white",
+              justifyContent: "flex-start",
+            }}
+          >
+            <View
               style={{
-                backgroundColor: "red",
-                padding: 13,
-                paddingHorizontal: 30,
-                alignItems: "center",
-                borderRadius: 10,
+                justifyContent: "center",
               }}
-              onPress={handleLogin}
             >
-              <Text style={{ color: "white", fontWeight: "700", fontSize: 20 }}>
-                Login
-              </Text>
-            </TouchableOpacity>
+              <View
+                style={{
+                  padding: 10,
+                  marginHorizontal: 20,
+                }}
+              >
+                <TextInput
+                  style={{
+                    padding: 10,
+                    fontSize: 20,
+                    marginVertical: 5,
+                    backgroundColor: "rgb(232,232,232)",
+                  }}
+                  onChangeText={(newText) => {
+                    setLoginUser({ ...LoginUser, email: newText });
+                  }}
+                  placeholder="Email"
+                />
+                <TextInput
+                  style={{
+                    padding: 10,
+                    fontSize: 20,
+                    marginVertical: 5,
+                    backgroundColor: "rgb(232,232,232)",
+                  }}
+                  placeholder="Password"
+                  onChangeText={(newText) => {
+                    setLoginUser({ ...LoginUser, password: newText });
+                  }}
+                />
+                {error && <Text style={{ color: "red" }}>{error}</Text>}
+              </View>
+              <View style={{ justifyContent: "center", flexDirection: "row" }}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "red",
+                    padding: 13,
+                    paddingHorizontal: 30,
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
+                  onPress={handleLogin}
+                >
+                  <Text
+                    style={{ color: "white", fontWeight: "700", fontSize: 20 }}
+                  >
+                    Login
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 
