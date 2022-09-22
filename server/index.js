@@ -7,7 +7,7 @@ const uri = process.env.URI;
 var MongoClient = require("mongodb").MongoClient;
 const port = "8000";
 
-//Login
+// Login Route
 app.post("/login", async (req, res) => {
   console.log("LOGIN REQUEST");
   const client = new MongoClient(uri);
@@ -35,11 +35,31 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/hello", async (req, res) => {
+app.get("/hello", async (req, res) => {
   console.log(req.body);
   res.json("hello");
 });
 
-//Signup
+// Get users
+app.get("/getusers", async (req, res) => {
+  const { gender } = req.query;
+  console.log("getusers");
+  console.log(gender);
+  const client = new MongoClient(uri);
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+    const genderedUsers = await users
+      .find({ gender_identity: gender })
+      .toArray();
+    console.log(genderedUsers);
+    res.send(genderedUsers);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// Signup
 
 app.listen(port);

@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
 import {
   Image,
   SafeAreaView,
@@ -9,15 +8,35 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { useSelector } from "react-redux";
-import useAuth from "../Hooks/useAuth";
+import Swiper from "react-native-deck-swiper";
+import { useEffect } from "react";
 
 const Homescreen = () => {
   const navigation = useNavigation();
   const user = useSelector((state) => {
     return state.user.userinfo;
   });
+  console.log(user);
+
+  /* Get users for swiping */
+
+  const FetchUsers = () => {
+    const url = `http://localhost:8000/getusers?gender=${user.gender_interest}`;
+    console.log("in fetch users");
+    fetch(url, { method: "Get" })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  };
+  useEffect(() => {
+    FetchUsers();
+  }, []);
   return (
     <SafeAreaView>
+      {/*Header */}
       <View
         style={{
           flexDirection: "row",
@@ -46,6 +65,7 @@ const Homescreen = () => {
           />
         </TouchableOpacity>
       </View>
+      {/*Cards*/}
     </SafeAreaView>
   );
 };
