@@ -171,7 +171,7 @@ const Login = () => {
               <View style={{ justifyContent: "center", flexDirection: "row" }}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: "red",
+                    backgroundColor: "#FF5864",
                     padding: 13,
                     paddingHorizontal: 30,
                     alignItems: "center",

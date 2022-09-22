@@ -310,7 +310,7 @@ const Signup = () => {
               }}
               placeholder="Confirm password"
             />
-            {error.confirmPassword.value && 
+            {error.confirmPassword.value && (
               <View
                 style={{
                   flexDirection: "row",
@@ -333,13 +333,13 @@ const Signup = () => {
                   {error.confirmPassword.description}
                 </Text>
               </View>
-            }
+            )}
           </View>
           <View style={{ justifyContent: "center", flexDirection: "row" }}>
             <TouchableOpacity
               onPress={handleSignup}
               style={{
-                backgroundColor: "red",
+                backgroundColor: "#FF5864",
                 padding: 13,
                 paddingHorizontal: 30,
                 alignItems: "center",

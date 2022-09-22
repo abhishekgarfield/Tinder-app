@@ -6,6 +6,6 @@ import loaderSlice from "./Hooks/loading";
 export const store = configureStore({
   reducer: {
     user: userSlice,
-    loader:loaderSlice
+    loader: loaderSlice,
   },
 });

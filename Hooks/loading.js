@@ -9,7 +9,7 @@ export const loadSlice = createSlice({
   initialState,
   reducers: {
     isloading: function (state, action) {
-      state.isloading=action.payload;
+      state.isloading = action.payload;
     },
   },
 });

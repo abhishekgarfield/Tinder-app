@@ -22,7 +22,7 @@ const LoginScreen = () => {
               navigation.navigate("login");
             }}
             style={{
-              backgroundColor: "red",
+              backgroundColor: "#FF5864",
               flexGrow: 1,
               padding: 13,
               alignItems: "center",
@@ -39,7 +39,7 @@ const LoginScreen = () => {
               navigation.navigate("signup");
             }}
             style={{
-              backgroundColor: "red",
+              backgroundColor: "#FF5864",
               flexGrow: 1,
               padding: 13,
               alignItems: "center",
