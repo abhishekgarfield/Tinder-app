@@ -11,40 +11,7 @@ import { useSelector } from "react-redux";
 import Swiper from "react-native-deck-swiper";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-const data = [
-  {
-    user_id: "8298de89-7233-4aec-883b-35951e2c82e1",
-    email: "abhishek@123",
-    hashed_password:
-      "$2b$10$Ik9wnWzGGwq26fQ4hFwC7.k/44bPzmpBCzhL2YpMhhtBOWiBGBrmC",
-    about: "i m a web developer",
-    dob_day: "23",
-    dob_month: "04",
-    dob_year: "1999",
-    first_name: "Abhishek",
-    gender_identity: "man",
-    gender_interest: "woman",
-    matches: [[Object]],
-    show_gender: true,
-    url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/A._P._J._Abdul_Kalam.jpg",
-  },
-  {
-    user_id: "a2fe5331-6d31-41c4-89df-c682d3b99f60",
-    email: "harsh@123",
-    hashed_password:
-      "$2b$10$D59u17RHZ8MvbleLg4Gnp.ZyKi2WTXq0B3C2PAY9xsEkys94EFHIq",
-    about: "i m from bella",
-    dob_day: "30",
-    dob_month: "08",
-    dob_year: "1998",
-    first_name: "Harsh",
-    gender_identity: "man",
-    gender_interest: "woman",
-    matches: [],
-    show_gender: false,
-    url: "https://upload.wikimedia.org/wikipedia/commons/a/a6/James_Boswell_of_Auchinleck.jpg",
-  },
-];
+
 const Homescreen = () => {
   const swipeRef = useRef(null);
   const date = new Date();
@@ -54,10 +21,10 @@ const Homescreen = () => {
     return state.user.userinfo;
   });
 
-  /* Get users for swiping 
+  /* Get users for swiping  */
 
   const FetchUsers = () => {
-    //const url = `http://localhost:8000/getusers?gender=${user.gender_interest}`;
+    const url = `http://localhost:8000/getusers?gender=${user.gender_interest}`;
     console.log("in fetch users");
     fetch(url, { method: "Get" })
       .then((res) => {
@@ -70,7 +37,7 @@ const Homescreen = () => {
   useLayoutEffect(() => {
     FetchUsers();
   }, []);
-  */
+ 
   return (
     <SafeAreaView style={{ flexGrow: 1 }}>
       {/*Header */}
@@ -105,9 +72,9 @@ const Homescreen = () => {
       </View>
       {/*Cards*/}
       <View style={{ flexGrow: 1, marginTop: -20 }}>
-        {data && (
+        {genderedUsers && (
           <Swiper
-            cards={data}
+            cards={genderedUsers}
             ref={swipeRef}
             cardIndex={0}
             backgroundColor={"#4FD0E9"}
