@@ -26,7 +26,7 @@ const data = [
     gender_interest: "woman",
     matches: [[Object]],
     show_gender: true,
-    url: "https://i.imgur.com/o4Jt65R.jpg",
+    url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/A._P._J._Abdul_Kalam.jpg",
   },
   {
     user_id: "a2fe5331-6d31-41c4-89df-c682d3b99f60",
@@ -42,7 +42,7 @@ const data = [
     gender_interest: "woman",
     matches: [],
     show_gender: false,
-    url: "https://i.imgur.com/AahuTEb.jpg",
+    url: "https://upload.wikimedia.org/wikipedia/commons/a/a6/James_Boswell_of_Auchinleck.jpg",
   },
 ];
 const Homescreen = () => {
@@ -109,52 +109,84 @@ const Homescreen = () => {
           <Swiper
             cards={data}
             ref={swipeRef}
+            cardIndex={0}
+            backgroundColor={"#4FD0E9"}
+            stackSize={5}
             containerStyle={{ backgroundColor: "transparent", flexGrow: 1 }}
-            renderCard={(card) => (
-              <View
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 10,
-                  shadowOffset: { height: 10, width: 3 },
-                  shadowOpacity: 0.2,
-                  shadowColor: "#000",
-                }}
-              >
-                <Image
-                  source={{ uri: card.url }}
-                  style={{
-                    height: 550,
-                    flexDirection: "column",
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                  }}
-                />
+            renderCard={(card) =>
+              card ? (
                 <View
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: 10,
+                    backgroundColor: "white",
+                    borderRadius: 10,
+                    shadowOffset: { height: 10, width: 3 },
+                    shadowOpacity: 0.2,
+                    shadowColor: "#000",
                   }}
                 >
-                  <View style={{ flexDirection: "column", padding: 10 }}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        marginBottom: 2,
-                      }}
-                    >
-                      {card.first_name}
+                  <Image
+                    source={{ uri: card.url }}
+                    style={{
+                      height: 550,
+                      flexDirection: "column",
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                    }}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: 10,
+                    }}
+                  >
+                    <View style={{ flexDirection: "column", padding: 10 }}>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          fontWeight: "bold",
+                          marginBottom: 2,
+                        }}
+                      >
+                        {card.first_name}
+                      </Text>
+                      <Text style={{ fontSize: 15 }}>{card.about}</Text>
+                    </View>
+                    <Text style={{ fontSize: 23, fontWeight: "600" }}>
+                      {date.getFullYear() - card.dob_year}
                     </Text>
-                    <Text style={{ fontSize: 15 }}>{card.about}</Text>
                   </View>
-                  <Text style={{ fontSize: 23, fontWeight: "600" }}>
-                    {date.getFullYear() - card.dob_year}
+                </View>
+              ) : (
+                <View
+                  style={{
+                    backgroundColor: "white",
+                  }}
+                >
+                  <Image
+                    source={{ uri: "https://links.papareact.com/6gb" }}
+                    style={{
+                      height: 500,
+                      flexGrow: 1,
+                      resizeMode: "contain",
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      fontWeight: "500",
+                      textAlign: "center",
+                      fontSize: 20,
+                      paddingVertical: 20,
+                    }}
+                  >
+                    No more Profiles
                   </Text>
                 </View>
-              </View>
-            )}
+              )
+            }
           />
         )}
       </View>
@@ -166,7 +198,11 @@ const Homescreen = () => {
           alignItems: "flex-end",
         }}
       >
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            swipeRef.current.swipeLeft();
+          }}
+        >
           <Icon
             name="cross"
             type="entypo"
@@ -178,12 +214,22 @@ const Homescreen = () => {
             }}
           />
         </TouchableOpacity>
-        <Icon
-          name="heart"
-          type="antdesign"
-          color={"pink"}
-          style={{ backgroundColor: "#FF5864", padding: 23, borderRadius: 50 }}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            swipeRef.current.swipeRight();
+          }}
+        >
+          <Icon
+            name="heart"
+            type="antdesign"
+            color={"pink"}
+            style={{
+              backgroundColor: "#FF5864",
+              padding: 23,
+              borderRadius: 50,
+            }}
+          />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
