@@ -132,7 +132,17 @@ app.put("/updateuser", async (req, res) => {
 app.get("/messages",async(req,res)=>{
   console.log("in messages")
   const{currentuserid,selecteduserid}=req.query;
-  console.log(`current=${currentuserid} , selected=${selecteduserid}`);
+  const client=new MongoClient(uri);
+  try{
+    await client.connect();
+    const database=client.db("app-data");
+    const messages=database.collection("messages");
+    const messageData= await messages.find({$and: [{"to_userId":selecteduserid,"from_userId":currentuserid}]}).sort({"timestamp":1}).toArray();
+res.send(messageData);s
+  }catch(err)
+  {
+    console.log(err);
+  }
 })
 // Signup
 
