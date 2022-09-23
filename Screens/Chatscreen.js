@@ -1,9 +1,10 @@
 import { Text } from "react-native";
+import Header from "../Components/header";
 
 const Chatscreen=()=>{
-
+    
     return(
-        <Text>chatscreen</Text>
+        <Header title={"Chat"} callenabled={false}/>
     );
 }
 export default Chatscreen;

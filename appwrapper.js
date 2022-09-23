@@ -31,7 +31,8 @@ const Appwrapper = () => {
                   options={{headerShown:false}}/>
                   <Stack.Screen name="matchscreen" component={MatchScreen}
                   options={{headerShown:false,presentation:"modal"}}/>
-                  <Stack.Screen name="chatscreen" component={Chatscreen} />
+                  <Stack.Screen name="chatscreen" component={Chatscreen}
+                  options={{headerShown:false}} />
                 </>
               ) : (
                 <>
