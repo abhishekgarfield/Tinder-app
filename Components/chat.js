@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import {
   SafeAreaView,
@@ -7,9 +8,11 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { Navigation } from "react-native-navigation";
 import { useSelector } from "react-redux";
 
 const Chat = () => {
+  const navigation=useNavigation();
   const user = useSelector((state) => {
     return state.user.userinfo;
   });
@@ -47,6 +50,9 @@ const Chat = () => {
         {filteredMatchedProfile?.map((item, index) => (
           <TouchableOpacity
             key={index}
+            onPress={()=>{
+                navigation.navigate("messagescreen",{user:item})
+            }}
             style={{
               flexDirection: "row",
               padding: 15,

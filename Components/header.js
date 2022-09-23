@@ -20,7 +20,13 @@ const Header = ({ title, callenabled }) => {
         <TouchableOpacity
           style={{ position: "absolute", left: 0, alignItems: "center" }}
           onPress={() => {
+            if(title=="Chat")
+            {
             navigation.navigate("homescreen");
+            }
+            else{
+              navigation.goBack();
+            }
           }}
         >
           <Icon name="chevron-left" type="entypo" color={"red"} size={40} />

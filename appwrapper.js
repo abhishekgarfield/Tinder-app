@@ -10,6 +10,7 @@ import Signup from "./Screens/signup";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./store";
 import MatchScreen from "./Screens/matchscreen";
+import Messagescreen from "./Screens/messagescreen";
 
 const Appwrapper = () => {
   const Stack = createStackNavigator();
@@ -40,6 +41,11 @@ const Appwrapper = () => {
                   <Stack.Screen
                     name="chatscreen"
                     component={Chatscreen}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="messagescreen"
+                    component={Messagescreen}
                     options={{ headerShown: false }}
                   />
                 </>
