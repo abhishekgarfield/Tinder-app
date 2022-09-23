@@ -34,7 +34,7 @@ app.post("/login", async (req, res) => {
     console.log(err);
   }
 });
-
+// Test function
 app.put("/hello", async (req, res) => {
   console.log(req.body);
   res.json("hello");
@@ -60,27 +60,58 @@ app.get("/getusers", async (req, res) => {
 });
 
 // Add match
-
-app.put("/addmatch",async(req,res)=>{
+app.put("/addmatch", async (req, res) => {
   console.log("add match");
-  const {matcheduser_id,user_id}=req.body;
-  console.log(req.body);
-  /*
-const client=new MongoClient(uri);
-  try{
-   await client.connect();
-   const database=client.db("app-data");
-   const users=database.collection("users");
-   const setQuery={$push:{"mathches":{"user_id":matcheduser_id}}}
-   const adduser=await users.updateOne({"user_id":user_id},setQuery) 
-   res.json("user added");
-  }
-  catch(err)
-  {
+  const { matcheduser_id, user_id } = req.body;
+  console.log(matcheduser_id);
+  const client = new MongoClient(uri);
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+    const setQuery = { $push: { matches: { user_id: matcheduser_id } } };
+    const adduser = await users.updateOne({ "user_id": user_id }, setQuery);
+    res.json("user added");
+    console.log(adduser);
+  } catch (err) {
     console.log(err);
-  }*/
-})
+  }
+});
 
+// Get matcedusers
+app.get("/matchedusers",async (req, res) => {
+  console.log("matched users");
+  const { users } =  req.query;
+  const userdata=users.split(",")
+  console.log(userdata)
+  const client=new MongoClient(uri);
+  try {
+    await client.connect();
+    const database=client.db("app-data");
+    const userses=database.collection("users");
+    if(users) {
+      const pipeline =
+          [
+              {
+                  "$match": {
+                      "user_id": {
+                          "$in": userdata
+                      }
+                  }
+              }
+          ]
+      const foundUsers = await userses.aggregate(pipeline).toArray();
+      console.log(foundUsers)
+      res.send(foundUsers);
+  }
+  else{
+    res.send([]);
+  }
+
+  } catch (err) {
+    console.log(err);
+  }
+});
 // Signup
 
 app.listen(port);
