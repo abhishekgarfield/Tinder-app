@@ -57,8 +57,8 @@ const MatchScreen = () => {
           borderRadius: 30,
           marginHorizontal: 30,
         }}
-        onPress={()=>{
-            navigation.navigate("chatscreen");
+        onPress={() => {
+          navigation.navigate("chatscreen");
         }}
       >
         <Text
