@@ -9,6 +9,7 @@ import Login from "./Screens/Login";
 import Signup from "./Screens/signup";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./store";
+import MatchScreen from "./Screens/matchscreen";
 
 const Appwrapper = () => {
   const Stack = createStackNavigator();
@@ -28,6 +29,8 @@ const Appwrapper = () => {
                 <>
                   <Stack.Screen name="homescreen" component={Homescreen} 
                   options={{headerShown:false}}/>
+                  <Stack.Screen name="matchscreen" component={MatchScreen}
+                  options={{headerShown:false,presentation:"modal"}}/>
                   <Stack.Screen name="chatscreen" component={Chatscreen} />
                 </>
               ) : (

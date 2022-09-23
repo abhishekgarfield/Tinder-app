@@ -65,6 +65,7 @@ app.put("/addmatch",async(req,res)=>{
   console.log("add match");
   const {matcheduser_id,user_id}=req.body;
   console.log(req.body);
+  /*
 const client=new MongoClient(uri);
   try{
    await client.connect();
@@ -77,7 +78,7 @@ const client=new MongoClient(uri);
   catch(err)
   {
     console.log(err);
-  }
+  }*/
 })
 
 // Signup

@@ -114,6 +114,10 @@ const Homescreen = () => {
             ref={swipeRef}
             onSwipedRight={(card) => {
               addMatch(filteredGenderedUsers[card]);
+              navigation.navigate("matchscreen", {
+                matchedUser: filteredGenderedUsers[card],
+                currentuser: user,
+              });
             }}
             onSwipedLeft={() => {
               console.log("nope");
