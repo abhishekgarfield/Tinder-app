@@ -43,7 +43,7 @@ const Messages = ({ selecteduser }) => {
     temp.url = selecteduser.url;
     temp.name = selecteduser.first_name;
     temp.time = item.timestamp;
-    temp.message = item.message;
+    temp.message = item.message.trim();
     filteredMessages.push(temp);
   });
   console.log(filteredMessages ? filteredMessages : "messages dont exist");
@@ -63,9 +63,8 @@ const Messages = ({ selecteduser }) => {
               item.name == user.first_name
                 ? {
                     backgroundColor: "#FF5864",
-                    flexDirection: "row-reverse",
+                    flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "flex-start",
                     marginVertical: 10,
                   }
                 : {

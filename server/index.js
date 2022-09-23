@@ -138,7 +138,7 @@ app.get("/messages",async(req,res)=>{
     const database=client.db("app-data");
     const messages=database.collection("messages");
     const messageData= await messages.find({$and: [{"to_userId":selecteduserid,"from_userId":currentuserid}]}).sort({"timestamp":1}).toArray();
-res.send(messageData);s
+res.send(messageData);
   }catch(err)
   {
     console.log(err);
