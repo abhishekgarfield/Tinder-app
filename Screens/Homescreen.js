@@ -7,11 +7,13 @@ import {
   View,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swiper from "react-native-deck-swiper";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { signin } from "../Hooks/useAuth";
 
 const Homescreen = () => {
+  const dispatch=useDispatch();
   const swipeRef = useRef(null);
   const date = new Date();
   const navigation = useNavigation();
@@ -20,6 +22,31 @@ const Homescreen = () => {
     return state.user.userinfo;
   });
 
+  // update user
+
+  const updateUser = () => {
+    console.log("in update")
+    const url="http://localhost:8000/updateuser"
+    fetch(url, {
+      method: "Put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user_id: user.user_id }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data)=>{
+        console.log(data);
+        
+        dispatch(signin(data));
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   /* Get users for swiping  */
 
   const FetchUsers = () => {
@@ -39,7 +66,6 @@ const Homescreen = () => {
     console.log("In add match");
 
     const url = `http://localhost:8000/addmatch`;
-    console.log(user.user_id);
     fetch(url, {
       method: "Put",
       headers: {
@@ -68,8 +94,6 @@ const Homescreen = () => {
   const filteredGenderedUsers = genderedUsers?.filter((swipeuser) => {
     return !matches.includes(swipeuser.user_id);
   });
-  console.log(filteredGenderedUsers ? filteredGenderedUsers : "dont exist");
-  console.log(matches ? matches : "dont exist matches");
   useLayoutEffect(() => {
     FetchUsers();
   }, []);
@@ -114,9 +138,10 @@ const Homescreen = () => {
             ref={swipeRef}
             onSwipedRight={(card) => {
               addMatch(filteredGenderedUsers[card]);
+              updateUser();
               if (
                 filteredGenderedUsers[card].matches.some(({ user_id }) => {
-                  return (user_id = user.user_id);
+                  return (user_id == user.user_id);
                 })
               )
                 navigation.navigate("matchscreen", {
@@ -129,6 +154,7 @@ const Homescreen = () => {
             }}
             onSwipedLeft={() => {
               console.log("nope");
+              updateUser();
             }}
             cardIndex={0}
             backgroundColor={"#4FD0E9"}

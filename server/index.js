@@ -63,14 +63,13 @@ app.get("/getusers", async (req, res) => {
 app.put("/addmatch", async (req, res) => {
   console.log("add match");
   const { matcheduser_id, user_id } = req.body;
-  console.log(matcheduser_id);
   const client = new MongoClient(uri);
   try {
     await client.connect();
     const database = client.db("app-data");
     const users = database.collection("users");
     const setQuery = { $push: { matches: { user_id: matcheduser_id } } };
-    const adduser = await users.updateOne({ user_id: user_id }, setQuery);
+    const adduser = await users.updateOne({ "user_id": user_id }, setQuery);
     res.json("user added");
     console.log(adduser);
   } catch (err) {
@@ -109,6 +108,24 @@ app.get("/matchedusers", async (req, res) => {
     console.log(err);
   }
 });
+
+//update user
+
+app.put("/updateuser", async (req, res) => {
+  console.log("update REQUEST");
+  const client = new MongoClient(uri);
+  const { user_id } = req.body;
+  await client.connect();
+  try {
+    var database = client.db("app-data");
+    var users = database.collection("users");
+    var User = await users.findOne({ "user_id": user_id });
+    res.send(User);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // Signup
 
 app.listen(port);
