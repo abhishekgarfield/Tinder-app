@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import Swiper from "react-native-deck-swiper";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-
 const Homescreen = () => {
   const swipeRef = useRef(null);
   const date = new Date();
@@ -34,10 +33,47 @@ const Homescreen = () => {
         setGenderedUsers(data);
       });
   };
+
+  // Add match
+  const addMatch = (matcheduser) => {
+    console.log("In add match");
+
+    const url = `http://localhost:8000/addmatch`;
+    console.log(user.user_id);
+    fetch(url, {
+      method: "Put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        matcheduser_id: matcheduser.user_id,
+        user_id: user.user_id,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((Data) => {
+        console.log(Data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const matches = user.matches
+    ?.map(({ user_id }) => {
+      return user_id;
+    })
+    .concat(user.user_id);
+  const filteredGenderedUsers = genderedUsers?.filter((swipeuser) => {
+    return !matches.includes(swipeuser.user_id);
+  });
+  console.log(filteredGenderedUsers ? filteredGenderedUsers : "dont exist");
+  console.log(matches ? matches : "dont exist matches");
   useLayoutEffect(() => {
     FetchUsers();
   }, []);
- 
+
   return (
     <SafeAreaView style={{ flexGrow: 1 }}>
       {/*Header */}
@@ -72,10 +108,16 @@ const Homescreen = () => {
       </View>
       {/*Cards*/}
       <View style={{ flexGrow: 1, marginTop: -20 }}>
-        {genderedUsers && (
+        {filteredGenderedUsers && (
           <Swiper
-            cards={genderedUsers}
+            cards={filteredGenderedUsers}
             ref={swipeRef}
+            onSwipedRight={(card) => {
+              addMatch(filteredGenderedUsers[card]);
+            }}
+            onSwipedLeft={() => {
+              console.log("nope");
+            }}
             cardIndex={0}
             backgroundColor={"#4FD0E9"}
             stackSize={5}

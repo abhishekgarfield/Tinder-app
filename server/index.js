@@ -35,16 +35,15 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/hello", async (req, res) => {
+app.put("/hello", async (req, res) => {
   console.log(req.body);
   res.json("hello");
 });
 
-// Get users
+// Get users for swipe
 app.get("/getusers", async (req, res) => {
   const { gender } = req.query;
   console.log("getusers");
-  console.log(gender);
   const client = new MongoClient(uri);
   try {
     await client.connect();
@@ -59,6 +58,27 @@ app.get("/getusers", async (req, res) => {
     console.log(err);
   }
 });
+
+// Add match
+
+app.put("/addmatch",async(req,res)=>{
+  console.log("add match");
+  const {matcheduser_id,user_id}=req.body;
+  console.log(req.body);
+const client=new MongoClient(uri);
+  try{
+   await client.connect();
+   const database=client.db("app-data");
+   const users=database.collection("users");
+   const setQuery={$push:{"mathches":{"user_id":matcheduser_id}}}
+   const adduser=await users.updateOne({"user_id":user_id},setQuery) 
+   res.json("user added");
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
+})
 
 // Signup
 
