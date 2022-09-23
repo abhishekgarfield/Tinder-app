@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
 const Header = ({ title, callenabled }) => {
-    const navigation=useNavigation();
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
       <View
@@ -19,7 +19,7 @@ const Header = ({ title, callenabled }) => {
       >
         <TouchableOpacity
           style={{ position: "absolute", left: 0, alignItems: "center" }}
-          onPress={()=>{
+          onPress={() => {
             navigation.goBack();
           }}
         >

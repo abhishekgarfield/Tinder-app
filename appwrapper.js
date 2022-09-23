@@ -27,12 +27,21 @@ const Appwrapper = () => {
             <Stack.Navigator>
               {user ? (
                 <>
-                  <Stack.Screen name="homescreen" component={Homescreen} 
-                  options={{headerShown:false}}/>
-                  <Stack.Screen name="matchscreen" component={MatchScreen}
-                  options={{headerShown:false,presentation:"modal"}}/>
-                  <Stack.Screen name="chatscreen" component={Chatscreen}
-                  options={{headerShown:false}} />
+                  <Stack.Screen
+                    name="homescreen"
+                    component={Homescreen}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="matchscreen"
+                    component={MatchScreen}
+                    options={{ headerShown: false, presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="chatscreen"
+                    component={Chatscreen}
+                    options={{ headerShown: false }}
+                  />
                 </>
               ) : (
                 <>
