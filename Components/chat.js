@@ -30,7 +30,6 @@ const Chat = () => {
       return user_id == user.user_id;
     });
   });
-  console.log(filteredMatchedProfile);
   useEffect(() => {
     getmatchedUsers();
   }, []);
