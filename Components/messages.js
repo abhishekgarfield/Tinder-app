@@ -62,13 +62,11 @@ const Messages = ({ selecteduser }) => {
             style={
               item.name == user.first_name
                 ? {
-                    backgroundColor: "#FF5864",
                     flexDirection: "row",
                     alignItems: "center",
                     marginVertical: 10,
                   }
                 : {
-                    backgroundColor: "purple",
                     flexDirection: "row",
                     alignItems: "center",
                   }
@@ -78,7 +76,21 @@ const Messages = ({ selecteduser }) => {
               source={{ uri: item.url }}
               style={{ height: 60, width: 60, borderRadius: 50 }}
             />
-            <Text>{item.message}</Text>
+            <View  style={
+                item.name == user.first_name
+                  ? {
+                      backgroundColor: "#FF5864",
+                      marginLeft: 10,
+                      padding:10,borderRadius:5
+                    }
+                  : { backgroundColor: "#A689E1", marginLeft: 10,padding:10,borderRadius:5 }
+              }>
+            <Text
+             style={{fontSize:17}}
+            >
+              {item.message}
+            </Text>
+            </View>
           </View>
         );
       })}
