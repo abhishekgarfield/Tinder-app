@@ -70,7 +70,7 @@ app.put("/addmatch", async (req, res) => {
     const database = client.db("app-data");
     const users = database.collection("users");
     const setQuery = { $push: { matches: { user_id: matcheduser_id } } };
-    const adduser = await users.updateOne({ "user_id": user_id }, setQuery);
+    const adduser = await users.updateOne({ user_id: user_id }, setQuery);
     res.json("user added");
     console.log(adduser);
   } catch (err) {
@@ -79,35 +79,32 @@ app.put("/addmatch", async (req, res) => {
 });
 
 // Get matcedusers
-app.get("/matchedusers",async (req, res) => {
+app.get("/matchedusers", async (req, res) => {
   console.log("matched users");
-  const { users } =  req.query;
-  const userdata=users.split(",")
-  console.log(userdata)
-  const client=new MongoClient(uri);
+  const { users } = req.query;
+  const userdata = users.split(",");
+  console.log(userdata);
+  const client = new MongoClient(uri);
   try {
     await client.connect();
-    const database=client.db("app-data");
-    const userses=database.collection("users");
-    if(users) {
-      const pipeline =
-          [
-              {
-                  "$match": {
-                      "user_id": {
-                          "$in": userdata
-                      }
-                  }
-              }
-          ]
+    const database = client.db("app-data");
+    const userses = database.collection("users");
+    if (users) {
+      const pipeline = [
+        {
+          $match: {
+            user_id: {
+              $in: userdata,
+            },
+          },
+        },
+      ];
       const foundUsers = await userses.aggregate(pipeline).toArray();
-      console.log(foundUsers)
+      console.log(foundUsers);
       res.send(foundUsers);
-  }
-  else{
-    res.send([]);
-  }
-
+    } else {
+      res.send([]);
+    }
   } catch (err) {
     console.log(err);
   }
