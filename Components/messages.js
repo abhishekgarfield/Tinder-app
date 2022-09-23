@@ -9,7 +9,7 @@ const Messages = ({ selecteduser }) => {
 
   const getMessages = () => {
     const url = `http://localhost:8000/messages?currentuserid=${user.user_id}&selecteduserid=${selecteduser.user_id}`;
-    fetch(url)
+    fetch(url,{method:"Get"})
       .then((res) => {
         return res.json();
       })

@@ -126,6 +126,14 @@ app.put("/updateuser", async (req, res) => {
   }
 });
 
+
+// messages 
+
+app.get("/messages",async(req,res)=>{
+  console.log("in messages")
+  const{currentuserid,selecteduserid}=req.query;
+  console.log(`current=${currentuserid} , selected=${selecteduserid}`);
+})
 // Signup
 
 app.listen(port);
