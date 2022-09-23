@@ -79,8 +79,8 @@ const Messages = ({ selecteduser }) => {
     filteredMessages.push(temp);
   });
 
-  const finalMessages = filteredMessages?.sort((a, b) =>
-    a.timestamp?.localeCompare(b.timestamp)
+  filteredMessages?.sort((a, b) =>
+    a.timestamp-b.timestamp
   );
   useEffect(() => {
     getcurrentuserMessages(), getselecteduserMessages();
@@ -89,7 +89,7 @@ const Messages = ({ selecteduser }) => {
     <>
       <View style={{ flexGrow: 1, paddingHorizontal: 10, flexBasis: 20, }}>
         <FlatList
-          data={finalMessages}
+          data={filteredMessages}
           showsVerticalScrollIndicator={false}
           style={{ marginVertical: 10 }}
           renderItem={({ item }) => {
