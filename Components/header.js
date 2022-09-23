@@ -28,7 +28,7 @@ const Header = ({ title, callenabled }) => {
           borderColor: "transparent",
           borderWidth: 2,
           paddingVertical: 11,
-          paddingHorizontal:20,
+          paddingHorizontal:12,
           alignItems: "center",
         }}
       >

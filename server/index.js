@@ -148,7 +148,20 @@ res.send(messageData);
 //add message
 app.put("/addmessage",async(req,res)=>{
   console.log("add message")
-  console.log(req.body);
+  const message=req.body;
+  console.log(message);
+  const client=new MongoClient(uri);
+  try{
+    await client.connect();
+    const database=client.db("app-data");
+    const messages=database.collection("messages");
+    const updatemessage=messages.insertOne(message);
+    res.json("data added");
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
 })
 // Signup
 
