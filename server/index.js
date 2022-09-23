@@ -144,6 +144,12 @@ res.send(messageData);
     console.log(err);
   }
 })
+
+//add message
+app.put("/addmessage",async(req,res)=>{
+  console.log("add message")
+  console.log(req.body);
+})
 // Signup
 
 app.listen(port);

@@ -72,7 +72,6 @@ const Chat = () => {
               <Text style={{ fontSize: 23, fontWeight: "600" }}>
                 {item.first_name}
               </Text>
-              <Text>Say hi !</Text>
             </View>
           </TouchableOpacity>
         ))}
