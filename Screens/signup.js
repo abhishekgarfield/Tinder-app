@@ -91,6 +91,7 @@ const Signup = () => {
               }}
             >
               <TextInput
+              autoCorrect={false}
                 value={Signupuser.email}
                 onChangeText={(newText) => {
                   setSignupuser({ ...Signupuser, email: newText });
@@ -155,8 +156,9 @@ const Signup = () => {
                 </View>
               )}
               <TextInput
+              value={Signupuser.password}
               secureTextEntry={true}
-                value={Signupuser.password}
+              autoCorrect={false}
                 onChangeText={(newText) => {
                   setSignupuser({ ...Signupuser, password: newText });
                   if (Signupuser.password?.length > 0)
@@ -301,7 +303,9 @@ const Signup = () => {
                 </View>
               )}
               <TextInput
-              secureTextEntry={true}
+          value={Signupuser.confirmPassword}
+          secureTextEntry={true}
+              autoCorrect={false}
                 onChangeText={(newText) => {
                   setSignupuser({ ...Signupuser, confirmPassword: newText });
                 }}
