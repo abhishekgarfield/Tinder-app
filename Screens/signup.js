@@ -1,10 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState, } from "react";
 import {
   TextInput,
   TouchableOpacity,
   View,
   Text,
+  KeyboardAvoidingView,
   Image,
   StyleSheet,
 } from "react-native";
@@ -60,6 +61,11 @@ const Signup = () => {
   }, []);
   useEffect(() => {}, [error.confirmPassword]);
   return (
+    <KeyboardAvoidingView
+      style={{ flexGrow: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS == "ios" ? -64 : 0}
+    >
     <View style={{ flexGrow: 1, backgroundColor: "white" }}>
       <View
         style={{
@@ -155,6 +161,7 @@ const Signup = () => {
             )}
             <TextInput
               value={Signupuser.password}
+              secureTextEntry={true}
               onChangeText={(newText) => {
                 setSignupuser({ ...Signupuser, password: newText });
                 if (Signupuser.password?.length > 0)
@@ -162,12 +169,12 @@ const Signup = () => {
                     ...error,
                     password: { value: true, description: "weak" },
                   });
-                if (Signupuser.password?.length > 10) {
+                if (Signupuser.password?.length > 3) {
                   setError({
                     ...error,
                     password: { value: true, description: "medium" },
                   });
-                  if (Signupuser.password.length > 15) {
+                  if (Signupuser.password.length > 6) {
                     setError({
                       ...error,
                       password: { value: true, description: "strong" },
@@ -299,6 +306,7 @@ const Signup = () => {
               </View>
             )}
             <TextInput
+            secureTextEntry={true}
               onChangeText={(newText) => {
                 setSignupuser({ ...Signupuser, confirmPassword: newText });
               }}
@@ -354,6 +362,7 @@ const Signup = () => {
         </View>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 
