@@ -29,15 +29,18 @@ const OnBoarding = () => {
     url: "",
   });
   const handleSubmit = () => {
-    /* const url = `http://localhost:8000/signup`;
-    fetch(url, { method: "POST" })
+    const temp={...Signupuser,...userdetails}
+    const url = `http://localhost:8000/signup`;
+    fetch(url, { method: "POST",
+    headers:{"Content-Type":"application/json"},
+body:JSON.stringify(temp) })
       .then((res) => {
         res.json();
       })
       .then((data) => {
         console.log(data);
       });*/
-    console.log(userdetails);
+    console.log({...Signupuser,...userdetails});
   };
   return (
     <>
