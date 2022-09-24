@@ -8,6 +8,8 @@ import {
   View,
   Text,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
@@ -47,7 +49,10 @@ const OnBoarding = () => {
       });
   };
   return (
-    <>
+    <KeyboardAvoidingView
+      style={{ flexGrow: 1,padding:0 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
       <SafeAreaView
         style={{
           flexGrow: 1,
@@ -287,6 +292,7 @@ const OnBoarding = () => {
           Enter url
         </Text>
         <TextInput
+        
           defaultValue={userdetails.url}
           onChangeText={(newText) =>
             setuserdetails({ ...userdetails, url: newText })
@@ -303,6 +309,7 @@ const OnBoarding = () => {
         <TouchableOpacity
           onPress={() => {
             handleSubmit();
+            Keyboard.dismiss();
           }}
           style={{
             backgroundColor: "#FF5864",
@@ -320,8 +327,7 @@ const OnBoarding = () => {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-      <SafeAreaView style={{ backgroundColor: "white" }}></SafeAreaView>
-    </>
+    </KeyboardAvoidingView>
   );
 };
 
