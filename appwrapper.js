@@ -20,11 +20,7 @@ const Appwrapper = () => {
     <NavigationContainer>
       <SafeAreaProvider>
         <Provider store={store}>
-          <KeyboardAvoidingView
-            style={{ flexGrow: 1 }}
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={Platform.OS == "ios" ? -64 : 0}
-          >
+        
             {/* HOC  -high order component */}
             <Stack.Navigator>
               {user ? (
@@ -60,7 +56,6 @@ const Appwrapper = () => {
                 </>
               )}
             </Stack.Navigator>
-          </KeyboardAvoidingView>
         </Provider>
       </SafeAreaProvider>
     </NavigationContainer>

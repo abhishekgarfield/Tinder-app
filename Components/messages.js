@@ -9,6 +9,8 @@ import {
   SafeAreaView,
   FlatList,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useSelector } from "react-redux";
 const Messages = ({ selecteduser }) => {
@@ -40,6 +42,7 @@ const Messages = ({ selecteduser }) => {
       });
   };
   const handleSubmit = () => {
+    console.log("adding message")
     const temp = {};
     temp.to_userId = selecteduser.user_id;
     temp.from_userId = user.user_id;
@@ -88,8 +91,9 @@ const Messages = ({ selecteduser }) => {
     getcurrentuserMessages(), getselecteduserMessages();
   }, []);
   return (
-    <>
-      <View style={{ flexGrow: 1, paddingHorizontal: 10, flexBasis: 20, }}>
+    <KeyboardAvoidingView behavior={Platform.OS=="ios"?"padding":"height"}style={{flexGrow:1,flexDirection:"column"}}
+    keyboardVerticalOffset={Platform.OS=="ios"?2:0}>
+      <View style={{ flexGrow: 2, paddingHorizontal: 10, flexBasis: 20, }}>
         <FlatList
           data={finalmessages}
           showsVerticalScrollIndicator={false}
@@ -102,11 +106,12 @@ const Messages = ({ selecteduser }) => {
                     ? {
                         flexDirection: "row-reverse",
                         alignItems: "center",
-                        marginVertical: 10,
+                        marginVertical: 5,
                       }
                     : {
                         flexDirection: "row",
                         alignItems: "center",
+                        marginVertical: 5,
                       }
                 }
               >
@@ -186,8 +191,9 @@ const Messages = ({ selecteduser }) => {
           flexDirection: "row",
           backgroundColor: "lightgrey",
           marginHorizontal: 20,
-          alignItems: "center",
+          alignItems: "flex-end",
           borderRadius: 10,
+          justifyContent:"flex-end",
           flexGrow: 0,
         }}
       >
@@ -207,7 +213,7 @@ const Messages = ({ selecteduser }) => {
         />
         <TouchableOpacity
           style={{ color: "#FF5864", padding: 20, borderRadius: 10 }}
-          onPress={()=>{handleSubmit;Keyboard.dismiss;}
+          onPress={()=>{handleSubmit();Keyboard.dismiss()}
           }
         >
           <Text style={{ color: "#FF5864", fontWeight: "700", fontSize: 20 }}>
@@ -215,7 +221,7 @@ const Messages = ({ selecteduser }) => {
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
-    </>
+    </KeyboardAvoidingView>
   );
 };
 
