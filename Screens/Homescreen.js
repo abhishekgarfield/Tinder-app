@@ -108,11 +108,14 @@ const Homescreen = () => {
           paddingHorizontal: 12,
           alignItems: "center",
         }}
-      >
+      ><TouchableOpacity onPress={()=>{
+        navigation.navigate("signout");
+      }}>
         <Image
           source={{ uri: user.url }}
           style={{ height: 45, width: 45, borderRadius: 50 }}
         />
+        </TouchableOpacity>
         <Image
           source={{ uri: "https://i.imgur.com/twh7tJk.png" }}
           style={{ height: 55, width: 55 }}
@@ -154,7 +157,6 @@ const Homescreen = () => {
             }}
             onSwipedLeft={() => {
               console.log("nope");
-              updateUser();
             }}
             cardIndex={0}
             backgroundColor={"#4FD0E9"}

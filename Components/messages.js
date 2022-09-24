@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  Keyboard,
 } from "react-native";
 import { useSelector } from "react-redux";
 const Messages = ({ selecteduser }) => {
@@ -206,7 +207,8 @@ const Messages = ({ selecteduser }) => {
         />
         <TouchableOpacity
           style={{ color: "#FF5864", padding: 20, borderRadius: 10 }}
-          onPress={handleSubmit}
+          onPress={()=>{handleSubmit;Keyboard.dismiss;}
+          }
         >
           <Text style={{ color: "#FF5864", fontWeight: "700", fontSize: 20 }}>
             Send

@@ -11,6 +11,7 @@ import { Provider, useSelector } from "react-redux";
 import { store } from "./store";
 import MatchScreen from "./Screens/matchscreen";
 import Messagescreen from "./Screens/messagescreen";
+import Signput from "./Screens/Signout";
 
 const Appwrapper = () => {
   const Stack = createStackNavigator();
@@ -48,6 +49,8 @@ const Appwrapper = () => {
                     component={Messagescreen}
                     options={{ headerShown: false }}
                   />
+                  <Stack.Screen name="signout" component={Signput}
+                  options={{headerShown:false,presentation:"card"}}/>
                 </>
               ) : (
                 <>

@@ -40,7 +40,7 @@ const Signput = () => {
       />
       <Text style={{ fontSize: 20, fontWeight: "600", marginVertical: 20 }}>
         {" "}
-        {`Hi ${user.first_name} see you soon !`}
+        {`Hi ${user.first_name} !`}
       </Text>
       <TouchableOpacity
         style={{ padding: 17, backgroundColor: "white", borderRadius: 10 }}

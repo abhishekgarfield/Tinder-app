@@ -12,7 +12,7 @@ app.post("/login", async (req, res) => {
   console.log("LOGIN REQUEST");
   const client = new MongoClient(uri);
   const { email, password } = req.body;
-  const senitizedEmail = email.toLowerCase();
+  const senitizedEmail = email?.toLowerCase();
   await client.connect();
   try {
     var database = client.db("app-data");
