@@ -166,12 +166,12 @@ const Signup = () => {
                       ...error,
                       password: { value: true, description: "weak" },
                     });
-                  if (Signupuser.password?.length > 10) {
+                  if (Signupuser.password?.length > 3) {
                     setError({
                       ...error,
                       password: { value: true, description: "medium" },
                     });
-                    if (Signupuser.password.length > 15) {
+                    if (Signupuser.password.length > 6) {
                       setError({
                         ...error,
                         password: { value: true, description: "strong" },
