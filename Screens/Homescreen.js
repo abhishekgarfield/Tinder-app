@@ -23,7 +23,7 @@ const Homescreen = () => {
   });
 
   // update user
-
+/*
   const updateUser = () => {
     console.log("in update");
     const url = "http://localhost:8000/updateuser";
@@ -45,6 +45,7 @@ const Homescreen = () => {
         console.log(err);
       });
   };
+  */
   /* Get users for swiping  */
 
   const FetchUsers = () => {
@@ -78,7 +79,7 @@ const Homescreen = () => {
         return res.json();
       })
       .then((Data) => {
-        console.log(Data);
+        dispatch(signin(Data));
       })
       .catch((err) => {
         console.log(err);
@@ -142,7 +143,6 @@ const Homescreen = () => {
             ref={swipeRef}
             onSwipedRight={(card) => {
               addMatch(filteredGenderedUsers[card]);
-              updateUser();
               if (
                 filteredGenderedUsers[card].matches.some(({ user_id }) => {
                   return user_id == user.user_id;

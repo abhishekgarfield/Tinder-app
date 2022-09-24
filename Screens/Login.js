@@ -143,6 +143,7 @@ const Login = () => {
                   placeholder="Email"
                 />
                 <TextInput
+                secureTextEntry={true}
                   style={{
                     padding: 10,
                     fontSize: 20,

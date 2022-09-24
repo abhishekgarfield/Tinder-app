@@ -70,8 +70,8 @@ app.put("/addmatch", async (req, res) => {
     const users = database.collection("users");
     const setQuery = { $push: { matches: { user_id: matcheduser_id } } };
     const adduser = await users.updateOne({ user_id: user_id }, setQuery);
-    res.json("user added");
-    console.log(adduser);
+    var User = await users.findOne({ user_id: user_id });
+    res.send(User);
   } catch (err) {
     console.log(err);
   }

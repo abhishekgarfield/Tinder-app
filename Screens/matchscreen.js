@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -9,6 +10,8 @@ import {
 import { Navigation } from "react-native-navigation";
 
 const MatchScreen = () => {
+  const [active,setActive]=useState(true);
+  setTimeout(()=>{setActive(false)},8000)
   const navigation = useNavigation();
   const {
     params: { matchedUser, currentuser },
@@ -52,7 +55,13 @@ const MatchScreen = () => {
         />
       </View>
       <TouchableOpacity
-        style={{
+      
+      disabled={active}
+        style={active?{
+          backgroundColor: "lightgrey",
+          borderRadius: 30,
+          marginHorizontal: 30,
+        }:{
           backgroundColor: "white",
           borderRadius: 30,
           marginHorizontal: 30,
