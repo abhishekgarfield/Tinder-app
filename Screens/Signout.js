@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../Hooks/useAuth";
 
 const Signput = () => {
-    const dispatch=useDispatch();
-    const navigate=useNavigation();
+  const dispatch = useDispatch();
+  const navigate = useNavigation();
   const user = useSelector((state) => {
     return state.user.userinfo;
   });
@@ -22,9 +22,9 @@ const Signput = () => {
       }}
     >
       <TouchableOpacity
-      onPress={()=>{
-        navigate.goBack();
-      }}
+        onPress={() => {
+          navigate.goBack();
+        }}
         style={{
           position: "absolute",
           zIndex: 2,
@@ -52,8 +52,8 @@ const Signput = () => {
       </Text>
       <TouchableOpacity
         style={{ padding: 17, backgroundColor: "white", borderRadius: 10 }}
-        onPress={()=>{
-            dispatch(signin(null));
+        onPress={() => {
+          dispatch(signin(null));
         }}
       >
         <Text style={{ color: "black", fontSize: 20, fontWeight: "bold" }}>

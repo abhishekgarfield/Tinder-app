@@ -12,7 +12,7 @@ app.post("/login", async (req, res) => {
   console.log("LOGIN REQUEST");
   const client = new MongoClient(uri);
   const { email, password } = req.body;
-  const senitizedEmail = email?.toLowerCase();
+  const senitizedEmail = email.toLowerCase();
   await client.connect();
   try {
     var database = client.db("app-data");
@@ -69,7 +69,7 @@ app.put("/addmatch", async (req, res) => {
     const database = client.db("app-data");
     const users = database.collection("users");
     const setQuery = { $push: { matches: { user_id: matcheduser_id } } };
-    const adduser = await users.updateOne({ "user_id": user_id }, setQuery);
+    const adduser = await users.updateOne({ user_id: user_id }, setQuery);
     res.json("user added");
     console.log(adduser);
   } catch (err) {
@@ -119,50 +119,51 @@ app.put("/updateuser", async (req, res) => {
   try {
     var database = client.db("app-data");
     var users = database.collection("users");
-    var User = await users.findOne({ "user_id": user_id });
+    var User = await users.findOne({ user_id: user_id });
     res.send(User);
   } catch (err) {
     console.log(err);
   }
 });
 
+// messages
 
-// messages 
-
-app.get("/messages",async(req,res)=>{
-  console.log("in messages")
-  const{currentuserid,selecteduserid}=req.query;
-  const client=new MongoClient(uri);
-  try{
+app.get("/messages", async (req, res) => {
+  console.log("in messages");
+  const { currentuserid, selecteduserid } = req.query;
+  const client = new MongoClient(uri);
+  try {
     await client.connect();
-    const database=client.db("app-data");
-    const messages=database.collection("messages");
-    const messageData= await messages.find({$and: [{"to_userId":selecteduserid,"from_userId":currentuserid}]}).sort({"timestamp":1}).toArray();
-res.send(messageData);
-  }catch(err)
-  {
+    const database = client.db("app-data");
+    const messages = database.collection("messages");
+    const messageData = await messages
+      .find({
+        $and: [{ to_userId: selecteduserid, from_userId: currentuserid }],
+      })
+      .sort({ timestamp: 1 })
+      .toArray();
+    res.send(messageData);
+  } catch (err) {
     console.log(err);
   }
-})
+});
 
 //add message
-app.put("/addmessage",async(req,res)=>{
-  console.log("add message")
-  const message=req.body;
+app.put("/addmessage", async (req, res) => {
+  console.log("add message");
+  const message = req.body;
   console.log(message);
-  const client=new MongoClient(uri);
-  try{
+  const client = new MongoClient(uri);
+  try {
     await client.connect();
-    const database=client.db("app-data");
-    const messages=database.collection("messages");
-    const updatemessage=messages.insertOne(message);
+    const database = client.db("app-data");
+    const messages = database.collection("messages");
+    const updatemessage = messages.insertOne(message);
     res.json("data added");
-  }
-  catch(err)
-  {
+  } catch (err) {
     console.log(err);
   }
-})
+});
 // Signup
 
 app.listen(port);

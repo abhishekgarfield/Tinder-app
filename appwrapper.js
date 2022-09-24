@@ -20,42 +20,44 @@ const Appwrapper = () => {
     <NavigationContainer>
       <SafeAreaProvider>
         <Provider store={store}>
-        
-            {/* HOC  -high order component */}
-            <Stack.Navigator>
-              {user ? (
-                <>
-                  <Stack.Screen
-                    name="homescreen"
-                    component={Homescreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="matchscreen"
-                    component={MatchScreen}
-                    options={{ headerShown: false, presentation: "modal" }}
-                  />
-                  <Stack.Screen
-                    name="chatscreen"
-                    component={Chatscreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="messagescreen"
-                    component={Messagescreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen name="signout" component={Signput}
-                  options={{headerShown:false,presentation:"card"}}/>
-                </>
-              ) : (
-                <>
-                  <Stack.Screen name="loginscreen" component={LoginScreen} />
-                  <Stack.Screen name="login" component={Login} />
-                  <Stack.Screen name="signup" component={Signup} />
-                </>
-              )}
-            </Stack.Navigator>
+          {/* HOC  -high order component */}
+          <Stack.Navigator>
+            {user ? (
+              <>
+                <Stack.Screen
+                  name="homescreen"
+                  component={Homescreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="matchscreen"
+                  component={MatchScreen}
+                  options={{ headerShown: false, presentation: "modal" }}
+                />
+                <Stack.Screen
+                  name="chatscreen"
+                  component={Chatscreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="messagescreen"
+                  component={Messagescreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="signout"
+                  component={Signput}
+                  options={{ headerShown: false, presentation: "card" }}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="loginscreen" component={LoginScreen} />
+                <Stack.Screen name="login" component={Login} />
+                <Stack.Screen name="signup" component={Signup} />
+              </>
+            )}
+          </Stack.Navigator>
         </Provider>
       </SafeAreaProvider>
     </NavigationContainer>

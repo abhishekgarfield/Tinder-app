@@ -9,11 +9,11 @@ import {
 import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import Swiper from "react-native-deck-swiper";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { signin } from "../Hooks/useAuth";
 
 const Homescreen = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const swipeRef = useRef(null);
   const date = new Date();
   const navigation = useNavigation();
@@ -25,8 +25,8 @@ const Homescreen = () => {
   // update user
 
   const updateUser = () => {
-    console.log("in update")
-    const url="http://localhost:8000/updateuser"
+    console.log("in update");
+    const url = "http://localhost:8000/updateuser";
     fetch(url, {
       method: "Put",
       headers: {
@@ -37,9 +37,7 @@ const Homescreen = () => {
       .then((res) => {
         return res.json();
       })
-      .then((data)=>{
-        console.log(data);
-        
+      .then((data) => {
         dispatch(signin(data));
       })
 
@@ -108,13 +106,16 @@ const Homescreen = () => {
           paddingHorizontal: 12,
           alignItems: "center",
         }}
-      ><TouchableOpacity onPress={()=>{
-        navigation.navigate("signout");
-      }}>
-        <Image
-          source={{ uri: user.url }}
-          style={{ height: 45, width: 45, borderRadius: 50 }}
-        />
+      >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("signout");
+          }}
+        >
+          <Image
+            source={{ uri: user.url }}
+            style={{ height: 45, width: 45, borderRadius: 50 }}
+          />
         </TouchableOpacity>
         <Image
           source={{ uri: "https://i.imgur.com/twh7tJk.png" }}
@@ -144,7 +145,7 @@ const Homescreen = () => {
               updateUser();
               if (
                 filteredGenderedUsers[card].matches.some(({ user_id }) => {
-                  return (user_id == user.user_id);
+                  return user_id == user.user_id;
                 })
               )
                 navigation.navigate("matchscreen", {
