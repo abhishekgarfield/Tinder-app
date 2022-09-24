@@ -10,8 +10,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import { useDispatch } from "react-redux";
 
 const OnBoarding = () => {
+    const dispatch=useDispatch();
   const {
     params: { Signupuser },
   } = useRoute();
@@ -29,18 +31,20 @@ const OnBoarding = () => {
     url: "",
   });
   const handleSubmit = () => {
-    const temp={...Signupuser,...userdetails}
+    const temp = { ...Signupuser, ...userdetails };
     const url = `http://localhost:8000/signup`;
-    fetch(url, { method: "POST",
-    headers:{"Content-Type":"application/json"},
-body:JSON.stringify(temp) })
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(temp),
+    })
       .then((res) => {
         res.json();
       })
       .then((data) => {
-        console.log(data);
-      });*/
-    console.log({...Signupuser,...userdetails});
+        dispatch
+      });
+    console.log({ ...Signupuser, ...userdetails });
   };
   return (
     <>
@@ -184,7 +188,7 @@ body:JSON.stringify(temp) })
                 : {
                     backgroundColor: "rgb(232,232,232)",
                     padding: 15,
-                    
+
                     fontSize: 20,
                     borderRadius: 10,
                     marginHorizontal: 10,
@@ -211,7 +215,7 @@ body:JSON.stringify(temp) })
                 : {
                     backgroundColor: "rgb(232,232,232)",
                     padding: 15,
-                   
+
                     fontSize: 20,
                     borderRadius: 10,
                     marginHorizontal: 10,
@@ -231,8 +235,7 @@ body:JSON.stringify(temp) })
             }}
             style={
               userdetails.gender_interest == "man"
-                ? 
-                  {
+                ? {
                     backgroundColor: "rgb(232,232,232)",
                     padding: 15,
                     borderColor: "#FF5864",
@@ -270,7 +273,7 @@ body:JSON.stringify(temp) })
                 : {
                     backgroundColor: "rgb(232,232,232)",
                     padding: 15,
-                   
+
                     fontSize: 20,
                     borderRadius: 10,
                     marginHorizontal: 10,
