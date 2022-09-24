@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
+import { signin } from "../Hooks/useAuth";
 
 const OnBoarding = () => {
     const dispatch=useDispatch();
@@ -42,9 +43,8 @@ const OnBoarding = () => {
         res.json();
       })
       .then((data) => {
-        dispatch
+        dispatch(signin(data));
       });
-    console.log({ ...Signupuser, ...userdetails });
   };
   return (
     <>
