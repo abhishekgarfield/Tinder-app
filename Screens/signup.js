@@ -12,6 +12,7 @@ import {
 import { Icon } from "react-native-elements";
 
 const Signup = () => {
+  const navigation = useNavigation();
   const [Signupuser, setSignupuser] = useState({
     email: null,
     password: null,
@@ -43,17 +44,10 @@ const Signup = () => {
           description: "",
         },
       });
-      const url = `http://localhost:8000/signup`;
-      fetch(url, { method: "POST" })
-        .then((res) => {
-          res.json();
-        })
-        .then((data) => {
-          console.log(data);
-        });
+      navigation.navigate("onboarding",{Signupuser:Signupuser});
     }
   };
-  const navigation = useNavigation();
+  
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,

@@ -12,6 +12,7 @@ import { store } from "./store";
 import MatchScreen from "./Screens/matchscreen";
 import Messagescreen from "./Screens/messagescreen";
 import Signput from "./Screens/Signout";
+import OnBoarding from "./Screens/onboarding";
 
 const Appwrapper = () => {
   const Stack = createStackNavigator();
@@ -55,6 +56,8 @@ const Appwrapper = () => {
                 <Stack.Screen name="loginscreen" component={LoginScreen} />
                 <Stack.Screen name="login" component={Login} />
                 <Stack.Screen name="signup" component={Signup} />
+                <Stack.Screen name="onboarding" component={OnBoarding} 
+                options={{headerShown:false}}/>
               </>
             )}
           </Stack.Navigator>
