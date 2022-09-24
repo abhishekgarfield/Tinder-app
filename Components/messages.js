@@ -42,13 +42,12 @@ const Messages = ({ selecteduser }) => {
       });
   };
   const handleSubmit = () => {
-    console.log("adding message")
+    console.log("adding message");
     const temp = {};
     temp.to_userId = selecteduser.user_id;
     temp.from_userId = user.user_id;
     temp.timestamp = new Date().toISOString();
     temp.message = message;
-    console.log(temp);
     const url = "http://localhost:8000/addmessage";
     fetch(url, {
       headers: { "Content-Type": "application/json" },
@@ -59,7 +58,6 @@ const Messages = ({ selecteduser }) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setMessage(null);
         getcurrentuserMessages(), getselecteduserMessages();
       });
@@ -83,17 +81,19 @@ const Messages = ({ selecteduser }) => {
     filteredMessages.push(temp);
   });
 
-  const finalmessages=filteredMessages?.sort((a, b) =>
+  const finalmessages = filteredMessages?.sort((a, b) =>
     a.time?.localeCompare(b.time)
   );
-  console.log(finalmessages);
   useEffect(() => {
     getcurrentuserMessages(), getselecteduserMessages();
   }, []);
   return (
-    <KeyboardAvoidingView behavior={Platform.OS=="ios"?"padding":"height"}style={{flexGrow:1,flexDirection:"column"}}
-    keyboardVerticalOffset={Platform.OS=="ios"?2:0}>
-      <View style={{ flexGrow: 2, paddingHorizontal: 10, flexBasis: 20, }}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={{ flexGrow: 1, flexDirection: "column" }}
+      keyboardVerticalOffset={Platform.OS == "ios" ? 2 : 0}
+    >
+      <View style={{ flexGrow: 2, paddingHorizontal: 10, flexBasis: 20 }}>
         <FlatList
           data={finalmessages}
           showsVerticalScrollIndicator={false}
@@ -193,7 +193,7 @@ const Messages = ({ selecteduser }) => {
           marginHorizontal: 20,
           alignItems: "flex-end",
           borderRadius: 10,
-          justifyContent:"flex-end",
+          justifyContent: "flex-end",
           flexGrow: 0,
         }}
       >
@@ -213,8 +213,10 @@ const Messages = ({ selecteduser }) => {
         />
         <TouchableOpacity
           style={{ color: "#FF5864", padding: 20, borderRadius: 10 }}
-          onPress={()=>{handleSubmit();Keyboard.dismiss()}
-          }
+          onPress={() => {
+            handleSubmit();
+            Keyboard.dismiss();
+          }}
         >
           <Text style={{ color: "#FF5864", fontWeight: "700", fontSize: 20 }}>
             Send

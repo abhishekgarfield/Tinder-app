@@ -7,7 +7,7 @@ import {
   Text,
   Image,
   ActivityIndicator,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +28,6 @@ const Login = () => {
   // Login
 
   const handleLogin = async () => {
-    console.log(LoginUser);
     // Routing
     dispatch(isloading(true));
     const url = `http://localhost:8000/login`;
@@ -71,10 +70,10 @@ const Login = () => {
   }, []);
   return (
     <KeyboardAvoidingView
-    style={{ flexGrow: 1 }}
-    behavior={Platform.OS == "ios" ? "padding" : "height"}
-    keyboardVerticalOffset={Platform.OS == "ios" ? -64 : 0}
-  >
+      style={{ flexGrow: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS == "ios" ? -64 : 0}
+    >
       {isLoading && (
         <View style={{ flexGrow: 1 }}>
           <ActivityIndicator
