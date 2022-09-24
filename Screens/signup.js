@@ -155,6 +155,7 @@ const Signup = () => {
                 </View>
               )}
               <TextInput
+              secureTextEntry={true}
                 value={Signupuser.password}
                 onChangeText={(newText) => {
                   setSignupuser({ ...Signupuser, password: newText });
@@ -300,6 +301,7 @@ const Signup = () => {
                 </View>
               )}
               <TextInput
+              secureTextEntry={true}
                 onChangeText={(newText) => {
                   setSignupuser({ ...Signupuser, confirmPassword: newText });
                 }}

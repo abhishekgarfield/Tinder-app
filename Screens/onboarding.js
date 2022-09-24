@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { signin } from "../Hooks/useAuth";
 
 const OnBoarding = () => {
-    const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const {
     params: { Signupuser },
   } = useRoute();
@@ -42,7 +42,7 @@ const OnBoarding = () => {
       body: JSON.stringify(temp),
     })
       .then((res) => {
-        res.json();
+        return res.json();
       })
       .then((data) => {
         dispatch(signin(data));
@@ -50,7 +50,7 @@ const OnBoarding = () => {
   };
   return (
     <KeyboardAvoidingView
-      style={{ flexGrow: 1,padding:0 }}
+      style={{ flexGrow: 1 }}
       behavior={Platform.OS == "ios" ? "padding" : "height"}
     >
       <SafeAreaView
@@ -292,8 +292,7 @@ const OnBoarding = () => {
           Enter url
         </Text>
         <TextInput
-        
-          defaultValue={userdetails.url}
+          Value={userdetails.url}
           onChangeText={(newText) =>
             setuserdetails({ ...userdetails, url: newText })
           }

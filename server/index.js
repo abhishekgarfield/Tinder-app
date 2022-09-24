@@ -1,6 +1,5 @@
 var bcrypt = require("bcrypt");
 var Express = require("express");
-const { useSafeAreaFrame } = require("react-native-safe-area-context");
 const {v4}=require("uuid");
 var app = Express();
 require("dotenv").config();
@@ -167,6 +166,7 @@ app.put("/addmessage", async (req, res) => {
   }
 });
 // Signup
+
 app.post("/signup",async(req,res)=>{
   console.log("signup REQUEST");
   const client = new MongoClient(uri);
@@ -185,7 +185,8 @@ app.post("/signup",async(req,res)=>{
     var users = database.collection("users");
     var User = await users.insertOne(user);
     const getuser=await users.findOne({"user_id":id});
-    res.send(getuser);
+    console.log(user);
+    res.send(getuser)
   }catch(err)
   {
     console.log(err);
