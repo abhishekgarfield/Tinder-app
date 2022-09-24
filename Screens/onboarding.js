@@ -29,14 +29,15 @@ const OnBoarding = () => {
     url: "",
   });
   const handleSubmit = () => {
-    const url = `http://localhost:8000/signup`;
+    /* const url = `http://localhost:8000/signup`;
     fetch(url, { method: "POST" })
       .then((res) => {
         res.json();
       })
       .then((data) => {
         console.log(data);
-      });
+      });*/
+    console.log(userdetails);
   };
   return (
     <>
@@ -67,6 +68,10 @@ const OnBoarding = () => {
           First name
         </Text>
         <TextInput
+          defaultValue={userdetails.first_name}
+          onChangeText={(newText) =>
+            setuserdetails({ ...userdetails, first_name: newText })
+          }
           style={{
             backgroundColor: "rgb(232,232,232)",
             padding: 15,
@@ -80,6 +85,10 @@ const OnBoarding = () => {
           About
         </Text>
         <TextInput
+          defaultValue={userdetails.about}
+          onChangeText={(newText) =>
+            setuserdetails({ ...userdetails, about: newText })
+          }
           style={{
             backgroundColor: "rgb(232,232,232)",
             padding: 15,
@@ -95,6 +104,10 @@ const OnBoarding = () => {
               Day
             </Text>
             <TextInput
+              defaultValue={userdetails.dob_day}
+              onChangeText={(newText) =>
+                setuserdetails({ ...userdetails, dob_day: newText })
+              }
               style={{
                 backgroundColor: "rgb(232,232,232)",
                 padding: 15,
@@ -110,6 +123,10 @@ const OnBoarding = () => {
               Month
             </Text>
             <TextInput
+              defaultValue={userdetails.dob_month}
+              onChangeText={(newText) =>
+                setuserdetails({ ...userdetails, dob_month: newText })
+              }
               style={{
                 backgroundColor: "rgb(232,232,232)",
                 padding: 15,
@@ -127,6 +144,10 @@ const OnBoarding = () => {
               Year
             </Text>
             <TextInput
+              defaultValue={userdetails.dob_year}
+              onChangeText={(newText) =>
+                setuserdetails({ ...userdetails, dob_year: newText })
+              }
               style={{
                 backgroundColor: "rgb(232,232,232)",
                 padding: 15,
@@ -143,26 +164,58 @@ const OnBoarding = () => {
         </Text>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
-            style={{
-              backgroundColor: "rgb(232,232,232)",
-              padding: 15,
-              fontSize: 20,
-              borderRadius: 10,
-              marginHorizontal: 10,
+            onPress={() => {
+              setuserdetails({ ...userdetails, gender_identity: "man" });
             }}
+            style={
+              userdetails.gender_identity == "man"
+                ? {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                    fontSize: 20,
+                    borderRadius: 10,
+                    borderColor: "#FF5864",
+                    borderWidth: 3,
+                    marginHorizontal: 10,
+                  }
+                : {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                    
+                    fontSize: 20,
+                    borderRadius: 10,
+                    marginHorizontal: 10,
+                  }
+            }
           >
-            <Text style={{ fontSize: 20, textAlign: "center" }}>Male</Text>
+            <Text style={{ fontSize: 20, textAlign: "center" }}>Man</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              backgroundColor: "rgb(232,232,232)",
-              padding: 15,
-              fontSize: 20,
-              borderRadius: 10,
-              marginHorizontal: 10,
+            onPress={() => {
+              setuserdetails({ ...userdetails, gender_identity: "woman" });
             }}
+            style={
+              userdetails.gender_identity == "woman"
+                ? {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                    fontSize: 20,
+                    borderRadius: 10,
+                    marginHorizontal: 10,
+                    borderColor: "#FF5864",
+                    borderWidth: 3,
+                  }
+                : {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                   
+                    fontSize: 20,
+                    borderRadius: 10,
+                    marginHorizontal: 10,
+                  }
+            }
           >
-            <Text style={{ fontSize: 20, textAlign: "center" }}>Female</Text>
+            <Text style={{ fontSize: 20, textAlign: "center" }}>Woman</Text>
           </TouchableOpacity>
         </View>
         <Text style={{ fontWeight: "400", fontSize: 20, padding: 15 }}>
@@ -170,32 +223,68 @@ const OnBoarding = () => {
         </Text>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
-            style={{
-              backgroundColor: "rgb(232,232,232)",
-              padding: 15,
-              fontSize: 20,
-              borderRadius: 10,
-              marginHorizontal: 10,
+            onPress={() => {
+              setuserdetails({ ...userdetails, gender_interest: "man" });
             }}
+            style={
+              userdetails.gender_interest == "man"
+                ? 
+                  {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                    borderColor: "#FF5864",
+                    borderWidth: 3,
+                    fontSize: 20,
+                    borderRadius: 10,
+                    marginHorizontal: 10,
+                  }
+                : {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                    fontSize: 20,
+                    borderRadius: 10,
+                    marginHorizontal: 10,
+                  }
+            }
           >
-            <Text style={{ fontSize: 20, textAlign: "center" }}>Male</Text>
+            <Text style={{ fontSize: 20, textAlign: "center" }}>Man</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              backgroundColor: "rgb(232,232,232)",
-              padding: 15,
-              fontSize: 20,
-              borderRadius: 10,
-              marginHorizontal: 10,
+            onPress={() => {
+              setuserdetails({ ...userdetails, gender_interest: "woman" });
             }}
+            style={
+              userdetails.gender_interest == "woman"
+                ? {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                    fontSize: 20,
+                    borderRadius: 10,
+                    borderColor: "#FF5864",
+                    borderWidth: 3,
+                    marginHorizontal: 10,
+                  }
+                : {
+                    backgroundColor: "rgb(232,232,232)",
+                    padding: 15,
+                   
+                    fontSize: 20,
+                    borderRadius: 10,
+                    marginHorizontal: 10,
+                  }
+            }
           >
-            <Text style={{ fontSize: 20, textAlign: "center" }}>Female</Text>
+            <Text style={{ fontSize: 20, textAlign: "center" }}>Woman</Text>
           </TouchableOpacity>
         </View>
         <Text style={{ fontWeight: "400", fontSize: 20, padding: 15 }}>
           Enter url
         </Text>
         <TextInput
+          defaultValue={userdetails.url}
+          onChangeText={(newText) =>
+            setuserdetails({ ...userdetails, url: newText })
+          }
           style={{
             backgroundColor: "rgb(232,232,232)",
             padding: 15,
@@ -206,6 +295,9 @@ const OnBoarding = () => {
           placeholder="Profile pic url"
         />
         <TouchableOpacity
+          onPress={() => {
+            handleSubmit();
+          }}
           style={{
             backgroundColor: "#FF5864",
             padding: 15,
